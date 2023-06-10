@@ -39,12 +39,12 @@ public interface Server extends IdentifiableObject {
      *
      * @return a completable future indicating whether the server started
      */
-    CompletableFuture<Boolean> start();
+    CompletableFuture<Void> start();
 
     /**
      * Stop the server if it is running
      *
      * @return a completable future indicating whether the server stopped
      */
-    CompletableFuture<Boolean> stop();
+    CompletableFuture<Void> stop();
 }
