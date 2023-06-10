@@ -1,4 +1,5 @@
 {
+  "modelPackage": "minicloud.client.model",
   "apiPackage": "minicloud.client",
   "groupId": "net.thenextlvl.cloud",
   "artifactId": "client",

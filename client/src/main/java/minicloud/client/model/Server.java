@@ -1,4 +1,4 @@
-package org.openapitools.model;
+package minicloud.client.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 /**
  * Server
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-11T01:42:30.937627644+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-11T01:47:26.496206287+02:00[Europe/Berlin]")
 
 public class Server   {
   @JsonProperty("name")
