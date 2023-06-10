@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.ServletContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-10T23:08:49.260205852+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-11T00:49:16.499167298+02:00[Europe/Berlin]")
 
 @Configuration
 @EnableSwagger2
@@ -30,7 +30,7 @@ public class OpenAPIDocumentationConfig {
             .license("Apache 2.0")
             .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
             .termsOfServiceUrl("")
-            .version("1.0.11")
+            .version("1.0.0")
             .contact(new Contact("","", "apiteam@swagger.io"))
             .build();
     }

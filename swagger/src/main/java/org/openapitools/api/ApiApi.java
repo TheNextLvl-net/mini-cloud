@@ -31,7 +31,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-10T23:08:49.260205852+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-11T00:49:16.499167298+02:00[Europe/Berlin]")
 
 @Validated
 @Api(value = "api", description = "the api API")
@@ -243,6 +243,7 @@ public interface ApiApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful operation"),
         @ApiResponse(code = 400, message = "Invalid input"),
+        @ApiResponse(code = 403, message = "Template in use"),
         @ApiResponse(code = 404, message = "Template not found") })
     @RequestMapping(value = "/api/v1/template/{name}",
         method = RequestMethod.DELETE)
@@ -291,7 +292,8 @@ public interface ApiApi {
 
     @ApiOperation(value = "Create a new template", nickname = "apiV1TemplatePost", notes = "", response = Template.class, tags={ "template", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Successful operation", response = Template.class) })
+        @ApiResponse(code = 201, message = "Successful operation", response = Template.class),
+        @ApiResponse(code = 409, message = "Template already exists") })
     @RequestMapping(value = "/api/v1/template",
         produces = { "application/json" }, 
         consumes = { "application/octet-stream" },

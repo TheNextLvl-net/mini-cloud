@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
 /**
  * ServerGroup
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-10T23:08:49.260205852+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-11T00:49:16.499167298+02:00[Europe/Berlin]")
 
 public class ServerGroup   {
   @JsonProperty("name")
