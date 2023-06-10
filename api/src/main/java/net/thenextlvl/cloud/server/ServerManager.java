@@ -3,9 +3,17 @@ package net.thenextlvl.cloud.server;
 import net.thenextlvl.cloud.server.error.ServerNotOfflineException;
 import net.thenextlvl.cloud.template.Template;
 
+import java.io.File;
 import java.util.Collection;
 
 public interface ServerManager {
+    /**
+     * Get the folder where all servers are stored
+     *
+     * @return the server container file
+     */
+    File getServerContainer();
+
     /**
      * Get a list of all servers
      *

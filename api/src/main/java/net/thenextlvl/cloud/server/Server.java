@@ -9,6 +9,13 @@ import java.util.function.Consumer;
 
 public interface Server extends IdentifiableObject {
     /**
+     * Get the folder where this server is stored
+     *
+     * @return the server's container file
+     */
+    File getContainer();
+
+    /**
      * Get the template the server is using
      *
      * @return the template the server is using
