@@ -1,0 +1,6 @@
+@FieldsAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+package minicloud.api.object;
+
+import core.annotation.FieldsAreNonnullByDefault;
+import core.annotation.MethodsReturnNonnullByDefault;
