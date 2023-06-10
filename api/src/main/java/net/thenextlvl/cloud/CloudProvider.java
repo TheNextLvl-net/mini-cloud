@@ -4,7 +4,7 @@ import net.thenextlvl.cloud.group.GroupManager;
 import net.thenextlvl.cloud.server.ServerManager;
 import net.thenextlvl.cloud.template.TemplateManager;
 
-public interface EasyCloud {
+public interface CloudProvider {
     /**
      * Get the group manager
      *
