@@ -26,6 +26,5 @@ swaggerSources {
         code.outputDir = file("client")
         code.configFile = file("client/config.json")
         code.wipeOutputDir = false
-        code.dependsOn(validation)
     }
 }
