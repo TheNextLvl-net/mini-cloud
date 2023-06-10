@@ -3,7 +3,7 @@ package net.thenextlvl.cloud.server;
 import net.thenextlvl.cloud.server.error.ServerNotOfflineException;
 import net.thenextlvl.cloud.template.Template;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface ServerManager {
@@ -12,7 +12,7 @@ public interface ServerManager {
      *
      * @return all servers
      */
-    Collection<Server> getServers();
+    List<Server> getServers();
 
     /**
      * Get an existing server
