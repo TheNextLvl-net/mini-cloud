@@ -1,4 +1,6 @@
+@FieldsAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 package net.thenextlvl.cloud.object;
 
+import core.annotation.FieldsAreNonnullByDefault;
 import core.annotation.MethodsReturnNonnullByDefault;

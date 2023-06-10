@@ -2,7 +2,7 @@ package net.thenextlvl.cloud.group;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface GroupManager {
@@ -11,7 +11,7 @@ public interface GroupManager {
      *
      * @return all groups
      */
-    Collection<ServerGroup> getGroups();
+    List<ServerGroup> getGroups();
 
     /**
      * Get an existing group

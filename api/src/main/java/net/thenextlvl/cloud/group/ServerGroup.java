@@ -1,11 +1,11 @@
 package net.thenextlvl.cloud.group;
 
-import net.thenextlvl.cloud.object.IdentifiableObject;
 import net.thenextlvl.cloud.networking.Port;
+import net.thenextlvl.cloud.object.IdentifiableObject;
 import net.thenextlvl.cloud.server.Server;
 import net.thenextlvl.cloud.template.Template;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface ServerGroup extends IdentifiableObject {
     /**
@@ -20,14 +20,14 @@ public interface ServerGroup extends IdentifiableObject {
      *
      * @return a list of ports
      */
-    Collection<Port> getPorts();
+    List<Port> getPorts();
 
     /**
      * Get all servers associated with this group
      *
      * @return a list of servers
      */
-    Collection<Server> getServers();
+    List<Server> getServers();
 
     /**
      * Get the max player count each server in this group can have
