@@ -1,0 +1,454 @@
+openapi: 3.0.3
+info:
+  title: EasyCloud API
+  description: |-
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers: []
+tags:
+  - name: server group
+    description: Operations about the server groups
+  - name: server
+    description: Operations about the servers
+  - name: template
+    description: Operations about the server templates
+paths:
+  /group:
+    get:
+      summary: Get all server groups
+      tags: 
+      - server group
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServerGroup'  
+    post:
+      summary: Create a new server group
+      tags: 
+      - server group
+      requestBody:
+        description: Create a new server group
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerGroup'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerGroup' 
+        '400':
+          description: Invalid input
+        '409':
+          description: Server group already exists
+  /group/{name}:
+    get:
+      summary: Get the server group
+      parameters:
+        - name: name
+          in: path
+          description: Name of the server group
+          required: true
+          schema:
+            type: string
+      tags: 
+      - server group
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerGroup'
+        '400':
+          description: Invalid input
+        '404':
+          description: Server group not found
+    delete:
+      summary: Delete an existing server group
+      parameters: 
+        - name: name
+          in: path
+          description: Name of the server group
+          required: true
+          schema:
+            type: string # Pattern
+      tags: 
+      - server group
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '409':
+          description: Server group not found
+  /group/{name}/servers:
+    get:
+      summary: Get all servers of the group
+      parameters:
+        - name: name
+          in: path
+          description: Name of the server group
+          required: true
+          schema:
+            type: string
+      tags: 
+      - server group
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerList'
+        '400':
+          description: Invalid input
+        '404':
+          description: Server group not found
+  /server:
+    get:
+      summary: Get all servers
+      tags: 
+      - server
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Server'
+    post:
+      summary: Create a new server
+      tags: 
+      - server
+      requestBody:
+        description: Create a new server
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: lobby-1
+                template:
+                  type: string
+                  example: lobby-template
+                group:
+                  type: string
+                  example: lobby
+                  nullable: true
+                max-players:
+                  type: integer
+                  format: int32
+                  example: 20
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server' 
+        '400':
+          description: Invalid input
+        '409':
+          description: Server already exists
+  /server/{name}:
+    get:
+      summary: Get the server
+      parameters:
+        - name: name
+          in: path
+          description: Name of the server
+          required: true
+          schema:
+            type: string
+      tags: 
+      - server
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+        '400':
+          description: Invalid input
+        '404':
+          description: Server not found
+    delete:
+      summary: Delete an existing server
+      parameters:
+        - name: name
+          in: path
+          description: Name of the server
+          required: true
+          schema:
+            type: string
+      tags: 
+      - server
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '404':
+          description: Server not found
+  /template:
+    get:
+      summary: Get all templates
+      tags: 
+      - template
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Template'
+    post:
+      summary: Create a new template
+      parameters: 
+        - name: name
+          in: query
+          description: Name of the template
+          example: lobby-template
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The tar binary of the template folder
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+        required: true
+      tags: 
+      - template
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+    put:
+      summary: Update the files of the template
+      parameters: 
+        - name: name
+          in: query
+          description: Name of the template
+          example: lobby-template
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The tar binary of the template folder
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+        required: true
+      tags: 
+      - template
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+  /template/{name}:
+    get:
+      summary: Get the template
+      parameters:
+        - name: name
+          in: path
+          description: Name of the template
+          required: true
+          schema:
+            type: string
+      tags: 
+      - template
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '400':
+          description: Invalid input
+        '404':
+          description: Template not found
+    delete:
+      summary: Delete an existing template
+      parameters:
+        - name: name
+          in: path
+          description: Name of the template
+          required: true
+          schema:
+            type: string
+      tags: 
+      - template
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '404':
+          description: Template not found
+  /template/{name}/download:
+    get:
+      summary: Downloads the template
+      parameters:
+        - name: name
+          in: path
+          description: Name of the template
+          required: true
+          schema:
+            type: string
+      tags: 
+      - template
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '204':
+          description: Empty template
+        '400':
+          description: Invalid input
+        '404':
+          description: Template not found
+components:
+  schemas:
+    Template:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-zA-Z0-9-_]+$
+        path:
+          type: string
+          format: file
+        size:
+          type: integer
+          format: uint64
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        format:
+          type: string
+    ServerConfiguration:
+      type: object
+      properties:
+        address:
+          type: string
+        port:
+          type: integer
+          format: uint16
+        command:
+          type: string
+    ServerGroup:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-zA-Z0-9-_]+$
+    Server:
+      type: object
+      properties:
+        name:
+          type: string
+          format: ^[a-zA-Z0-9-_]+$
+        group:
+          $ref: '#/components/schemas/ServerGroup'
+        config:
+          $ref: '#/components/schemas/ServerConfiguration'
+        status:
+          type: string
+          description: Server Status
+          example: STARTING
+          enum:
+            - STARTING
+            - ONLINE
+            - OFFLINE
+        online-players:
+          type: integer
+          format: int32
+          example: 4
+          nullable: false
+        max-players:
+          type: integer
+          format: int32
+          example: 20
+          nullable: false
+    ServerList:
+      type: object
+      properties:
+        servers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Server'
+#  requestBodies:
+#    Pet:
+#      description: Pet object that needs to be added to the store
+#      content:
+#        application/json:
+#          schema:
+#            $ref: '#/components/schemas/Pet'
+#        application/xml:
+#          schema:
+#            $ref: '#/components/schemas/Pet'
+#    UserArray:
+#      description: List of user object
+#      content:
+#        application/json:
+#          schema:
+#            type: array
+#            items:
+#              $ref: '#/components/schemas/User'
+#  securitySchemes:
+#    petstore_auth:
+#      type: oauth2
+#      flows:
+#        implicit:
+#          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+#          scopes:
+#            write:pets: modify pets in your account
+#            read:pets: read your pets
+#    api_key:
+#      type: apiKey
+#      name: api_key
+#      in: header
