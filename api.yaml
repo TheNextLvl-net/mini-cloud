@@ -408,6 +408,10 @@ components:
           type: string
           example: lobby-template
           pattern: ^[a-zA-Z0-9-_]+$
+        ports:
+          type: array
+          items:
+            $ref: '#/components/schemas/Port'
         max-players-per-server:
           type: integer
           format: int32
