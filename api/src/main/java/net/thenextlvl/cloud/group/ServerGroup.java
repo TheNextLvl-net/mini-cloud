@@ -20,14 +20,14 @@ public interface ServerGroup extends IdentifiableObject {
      *
      * @return a list of ports
      */
-    Collection<? extends Port> getPorts();
+    Collection<Port> getPorts();
 
     /**
      * Get all servers associated with this group
      *
      * @return a list of servers
      */
-    Collection<? extends Server> getServers();
+    Collection<Server> getServers();
 
     /**
      * Get the max player count each server in this group can have

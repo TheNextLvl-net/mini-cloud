@@ -11,7 +11,7 @@ public interface GroupManager {
      *
      * @return all groups
      */
-    Collection<? extends ServerGroup> getGroups();
+    Collection<ServerGroup> getGroups();
 
     /**
      * Get an existing group
