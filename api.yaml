@@ -282,6 +282,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Template'
+        '409':
+          description: Template already exists
     put:
       summary: Update the files of the template
       parameters:
@@ -348,6 +350,8 @@ paths:
           description: Successful operation
         '400':
           description: Invalid input
+        '403':
+          description: Template in use
         '404':
           description: Template not found
   /api/v1/template/{name}/download:
