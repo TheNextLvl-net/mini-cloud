@@ -412,6 +412,34 @@ components:
           type: integer
           format: int32
           example: 20
+    Port:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "minecraft"
+        protocol:
+          type: string
+          enum:
+            - tcp
+            - udp
+            - sctp
+          example: "tcp"
+        target-port:
+          type: integer
+          format: uint16
+          example: 25565
+        published-port:
+          type: integer
+          format: uint16
+          example: 25565
+        publish-mode:
+          type: string
+          example: "ingress"
+          enum:
+            - ingress
+            - host
+
     Server:
       type: object
       properties:
@@ -425,15 +453,15 @@ components:
           format: ^[a-zA-Z0-9-_]+$
         ip-address:
           type: string
-          example: 10.0.0.11
+          example: "10.0.0.11"
         status:
           type: string
           description: Server Status
-          example: STARTING
+          example: starting
           enum:
-            - STARTING
-            - ONLINE
-            - OFFLINE
+            - stating
+            - online
+            - offline
         online-players:
           type: integer
           format: int32
