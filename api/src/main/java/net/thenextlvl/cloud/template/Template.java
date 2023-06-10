@@ -2,8 +2,11 @@ package net.thenextlvl.cloud.template;
 
 import net.thenextlvl.cloud.object.IdentifiableObject;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
+import java.util.concurrent.CompletableFuture;
 
 public interface Template extends IdentifiableObject {
     /**
@@ -38,6 +41,15 @@ public interface Template extends IdentifiableObject {
      * Update the template based on a file input stream
      *
      * @param fileInput the file input to use as a template
+     * @return a completable future providing the updated template
      */
-    void updateFiles(FileInputStream fileInput);
+    CompletableFuture<Template> updateFiles(FileInputStream fileInput);
+
+    /**
+     * Download the template files
+     *
+     * @param destination the destination to save the template files at
+     * @return a file output stream
+     */
+    FileOutputStream downloadFiles(File destination);
 }
