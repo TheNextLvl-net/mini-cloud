@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class VelocityServer implements Server {
+public class MiniServer implements Server {
     private final String name;
     private final File container;
     private final ServerConfiguration configuration;

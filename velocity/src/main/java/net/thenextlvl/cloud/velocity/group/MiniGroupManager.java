@@ -12,13 +12,13 @@ import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
-public class VelocityGroupManager implements GroupManager {
+public class MiniGroupManager implements GroupManager {
     private final List<Group> groups = new ArrayList<>();
     private final File container;
 
     @Override
     public Group createGroup(String name) {
-        var group = new VelocityGroup(name, new File(getContainer(), name));
+        var group = new MiniGroup(name, new File(getContainer(), name));
         groups.add(group);
         return group;
     }

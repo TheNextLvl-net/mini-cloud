@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 /**
  * Template
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-10T22:59:18.353600272+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-10T23:08:49.260205852+02:00[Europe/Berlin]")
 
 public class Template   {
   @JsonProperty("name")

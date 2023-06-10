@@ -1,4 +1,4 @@
-rootProject.name = "easy-cloud"
+rootProject.name = "mini-cloud"
 include("api")
 include("paper")
 include("velocity")

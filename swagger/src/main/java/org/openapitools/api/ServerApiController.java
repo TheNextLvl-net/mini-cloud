@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-10T22:59:18.353600272+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-10T23:08:49.260205852+02:00[Europe/Berlin]")
 
 @Controller
-@RequestMapping("${openapi.easyCloud.base-path:}")
+@RequestMapping("${openapi.miniCloud.base-path:}")
 public class ServerApiController implements ServerApi {
 
     private final NativeWebRequest request;

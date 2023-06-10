@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
-public class VelocityGroup implements Group {
+public class MiniGroup implements Group {
     private final List<Server> servers = new ArrayList<>();
     private final String name;
     private final File container;

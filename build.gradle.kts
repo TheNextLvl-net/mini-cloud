@@ -15,7 +15,7 @@ dependencies {
 }
 
 swaggerSources {
-    register("easy-cloud") {
+    register("mini-cloud") {
         setInputFile(file("api.yaml"))
         code.language = "spring"
         code.wipeOutputDir = true

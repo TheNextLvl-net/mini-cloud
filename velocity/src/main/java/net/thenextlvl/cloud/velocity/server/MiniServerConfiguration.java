@@ -8,7 +8,7 @@ import java.net.InetSocketAddress;
 
 @Getter
 @RequiredArgsConstructor
-public class VelocityServerConfiguration implements ServerConfiguration {
+public class MiniServerConfiguration implements ServerConfiguration {
     private final InetSocketAddress address;
     private final String[] startCommand;
 }

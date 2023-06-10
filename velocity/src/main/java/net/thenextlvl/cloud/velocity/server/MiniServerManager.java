@@ -13,7 +13,7 @@ import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
-public class VelocityServerManager implements ServerManager {
+public class MiniServerManager implements ServerManager {
     private final List<Server> servers = new ArrayList<>();
     private final File container;
 
