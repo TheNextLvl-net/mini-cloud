@@ -1,0 +1,6 @@
+{
+  "apiPackage": "minicloud.client",
+  "groupId": "net.thenextlvl.cloud",
+  "artifactId": "client",
+  "artifactVersion": "1.0.0"
+}
