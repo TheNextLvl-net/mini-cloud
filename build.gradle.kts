@@ -16,9 +16,11 @@ dependencies {
 
 swaggerSources {
     register("mini-cloud") {
-        setInputFile(file("api.yaml"))
+        setInputFile(file("client/mini-cloud.yaml"))
         code.language = "spring"
-        code.wipeOutputDir = true
-        code.outputDir = file("swagger")
+        code.outputDir = file("client")
+        code.configFile = file("client/config.json")
+        code.wipeOutputDir = false
+        code.dependsOn(validation)
     }
 }
