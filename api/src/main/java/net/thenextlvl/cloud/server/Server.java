@@ -1,26 +1,20 @@
 package net.thenextlvl.cloud.server;
 
+import net.thenextlvl.cloud.object.ContainerizedObject;
 import net.thenextlvl.cloud.group.Group;
 import net.thenextlvl.cloud.object.IdentifiableObject;
+import net.thenextlvl.cloud.template.Template;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
 import java.util.function.Consumer;
 
-public interface Server extends IdentifiableObject {
-    /**
-     * Get the folder where this server is stored
-     *
-     * @return the server's container file
-     */
-    File getContainer();
-
+public interface Server extends ContainerizedObject, IdentifiableObject {
     /**
      * Get the template the server is using
      *
      * @return the template the server is using
      */
-    @Nullable File getTemplate();
+    @Nullable Template getTemplate();
 
     /**
      * Get the associated group of the server
