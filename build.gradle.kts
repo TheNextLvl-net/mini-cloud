@@ -6,6 +6,11 @@ plugins {
 group = "net.thenextlvl.cloud"
 version = "1.0.0"
 
+java {
+    targetCompatibility = JavaVersion.VERSION_19
+    sourceCompatibility = JavaVersion.VERSION_19
+}
+
 repositories {
     mavenCentral()
 }
