@@ -1,12 +1,12 @@
 package net.thenextlvl.cloud.server;
 
-import net.thenextlvl.cloud.object.ContainerizedObject;
 import net.thenextlvl.cloud.group.Group;
+import net.thenextlvl.cloud.object.ContainerizedObject;
 import net.thenextlvl.cloud.object.IdentifiableObject;
 import net.thenextlvl.cloud.template.Template;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 public interface Server extends ContainerizedObject, IdentifiableObject {
     /**
@@ -22,6 +22,13 @@ public interface Server extends ContainerizedObject, IdentifiableObject {
      * @return the group the server is associated with
      */
     @Nullable Group getGroup();
+
+    /**
+     * Get the server's configuration
+     *
+     * @return the server's configuration
+     */
+    ServerConfiguration getConfiguration();
 
     /**
      * Set the group the server should be associated with
@@ -54,16 +61,14 @@ public interface Server extends ContainerizedObject, IdentifiableObject {
     /**
      * Start the server if it is offline
      *
-     * @param started This will be called when the server is online or failed to start
-     * @return whether the server will be started
+     * @return a completable future indicating whether the server started
      */
-    boolean start(Consumer<Boolean> started);
+    CompletableFuture<Boolean> start();
 
     /**
      * Stop the server if it is running
      *
-     * @param stopped This will be called when the server is offline or failed to stop
-     * @return whether the server will be stopped
+     * @return a completable future indicating whether the server stopped
      */
-    boolean stop(Consumer<Boolean> stopped);
+    CompletableFuture<Boolean> stop();
 }

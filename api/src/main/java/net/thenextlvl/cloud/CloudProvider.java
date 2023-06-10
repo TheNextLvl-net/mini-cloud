@@ -1,10 +1,22 @@
 package net.thenextlvl.cloud;
 
 import net.thenextlvl.cloud.group.GroupManager;
+import net.thenextlvl.cloud.object.ContainerizedObject;
 import net.thenextlvl.cloud.server.ServerManager;
 import net.thenextlvl.cloud.template.TemplateManager;
 
-public interface CloudProvider {
+import java.io.File;
+
+public interface CloudProvider extends ContainerizedObject {
+
+    /**
+     * Get the general folder where objects are stored
+     *
+     * @return the general object container file
+     */
+    @Override
+    File getContainer();
+
     /**
      * Get the group manager
      *

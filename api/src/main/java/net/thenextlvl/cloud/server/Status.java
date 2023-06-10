@@ -4,10 +4,10 @@ public enum Status {
     ONLINE, OFFLINE, STARTING;
 
     /**
-     * @return whether the server is online or starting
+     * @return whether the server is not offline
      */
     public boolean isRunning() {
-        return isOnline() || isStarting();
+        return !isOffline();
     }
 
     /**

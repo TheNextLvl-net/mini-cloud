@@ -1,12 +1,23 @@
 package net.thenextlvl.cloud.group;
 
 import net.thenextlvl.cloud.group.error.GroupNotEmptyException;
+import net.thenextlvl.cloud.object.ContainerizedObject;
 
+import java.io.File;
 import java.util.Collection;
 
-public interface GroupManager {
+public interface GroupManager extends ContainerizedObject {
+
     /**
-     * Get a lis of all groups
+     * Get the folder where all groups are stored
+     *
+     * @return the group container file
+     */
+    @Override
+    File getContainer();
+
+    /**
+     * Get a list of all groups
      *
      * @return all groups
      */
