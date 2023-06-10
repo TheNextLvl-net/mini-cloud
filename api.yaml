@@ -213,6 +213,44 @@ paths:
           description: Invalid input
         '404':
           description: Server not found
+  /server/{name}/start:
+    post:
+      summary: Start the server
+      parameters:
+        - name: name
+          in: path
+          description: Name of the server
+          required: true
+          schema:
+            type: string
+      tags:
+        - server
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '404':
+          description: Server not found
+  /server/{name}/stop:
+    post:
+      summary: Stop the server
+      parameters:
+        - name: name
+          in: path
+          description: Name of the server
+          required: true
+          schema:
+            type: string
+      tags:
+        - server
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '404':
+          description: Server not found
   /api/v1/template:
     get:
       summary: Get all templates
