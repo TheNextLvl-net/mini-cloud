@@ -1,41 +1,24 @@
 package net.thenextlvl.cloud.server;
 
-import net.thenextlvl.cloud.group.Group;
-import net.thenextlvl.cloud.object.ContainerizedObject;
 import net.thenextlvl.cloud.object.IdentifiableObject;
-import net.thenextlvl.cloud.template.Template;
-import org.jetbrains.annotations.Nullable;
 
+import java.net.InetAddress;
 import java.util.concurrent.CompletableFuture;
 
-public interface Server extends ContainerizedObject, IdentifiableObject {
-    /**
-     * Get the template the server is using
-     *
-     * @return the template the server is using
-     */
-    @Nullable Template getTemplate();
-
+public interface Server extends IdentifiableObject {
     /**
      * Get the associated group of the server
      *
-     * @return the group the server is associated with
+     * @return the group
      */
-    @Nullable Group getGroup();
+    String getGroup();
 
     /**
-     * Get the server's configuration
+     * Get the internet address of the server
      *
-     * @return the server's configuration
+     * @return the internet address
      */
-    ServerConfiguration getConfiguration();
-
-    /**
-     * Set the group the server should be associated with
-     *
-     * @param group the group the server should be associated with
-     */
-    void setGroup(@Nullable Group group);
+    InetAddress getAddress();
 
     /**
      * Get the status of the server
@@ -50,13 +33,6 @@ public interface Server extends ContainerizedObject, IdentifiableObject {
      * @return the current player count
      */
     int getOnlinePlayers();
-
-    /**
-     * Get the max player count of the server
-     *
-     * @return the max player count
-     */
-    int getMaxPlayers();
 
     /**
      * Start the server if it is offline

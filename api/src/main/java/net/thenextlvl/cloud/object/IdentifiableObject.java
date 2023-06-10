@@ -1,8 +1,15 @@
 package net.thenextlvl.cloud.object;
 
+import java.util.regex.Pattern;
+
 public interface IdentifiableObject {
     /**
-     * Get the name of the object
+     * The allowed pattern for names
+     */
+    Pattern NAMING_PATTERN = Pattern.compile("^[a-zA-Z0-9-_]+$");
+
+    /**
+     * Get the name of the object<br>
      *
      * @return the name of the object
      */

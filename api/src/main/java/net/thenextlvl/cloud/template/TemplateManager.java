@@ -1,24 +1,37 @@
 package net.thenextlvl.cloud.template;
 
-import net.thenextlvl.cloud.object.ContainerizedObject;
 import net.thenextlvl.cloud.template.error.TemplateInUseException;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
+import java.io.FileInputStream;
+import java.util.Optional;
+import java.util.stream.Stream;
 
-public interface TemplateManager extends ContainerizedObject {
+public interface TemplateManager {
     /**
      * Get a list of all templates
      *
      * @return all templates
      */
-    Collection<? extends Template> getTemplates();
+    Stream<Template> getTemplates();
+
+    /**
+     * Get an existing template
+     *
+     * @param name the name of the desired template
+     * @return the desired template
+     */
+    @Nullable Optional<Template> getTemplate(String name);
 
     /**
      * Create a new template
      *
+     * @param name      the name of the template
+     * @param fileInput the file input to use as a template
      * @return the new template
+     * @throws IllegalStateException thrown if a similar template already exists
      */
-    Template createTemplate(String name);
+    Template createTemplate(String name, FileInputStream fileInput) throws IllegalStateException;
 
     /**
      * Remove an existing template

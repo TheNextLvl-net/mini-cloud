@@ -1,28 +1,26 @@
 package net.thenextlvl.cloud.server;
 
-import net.thenextlvl.cloud.object.ContainerizedObject;
 import net.thenextlvl.cloud.server.error.ServerNotOfflineException;
 import net.thenextlvl.cloud.template.Template;
 
-import java.io.File;
 import java.util.Collection;
+import java.util.Optional;
 
-public interface ServerManager extends ContainerizedObject {
-
-    /**
-     * Get the folder where all servers are stored
-     *
-     * @return the server container file
-     */
-    @Override
-    File getContainer();
-
+public interface ServerManager {
     /**
      * Get a list of all servers
      *
      * @return all servers
      */
-    Collection<? extends Server> getServers();
+    Collection<Server> getServers();
+
+    /**
+     * Get an existing server
+     *
+     * @param name the name of the desired server
+     * @return the desired server
+     */
+    Optional<Server> getServer(String name);
 
     /**
      * Create a new server
