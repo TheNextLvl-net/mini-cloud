@@ -21,7 +21,7 @@ tags:
   - name: template
     description: Operations about the server templates
 paths:
-  /group:
+  /api/v1/group:
     get:
       summary: Get all server groups
       tags: 
@@ -57,7 +57,7 @@ paths:
           description: Invalid input
         '409':
           description: Server group already exists
-  /group/{name}:
+  /api/v1/group/{name}:
     get:
       summary: Get the server group
       parameters:
@@ -98,7 +98,7 @@ paths:
           description: Invalid input
         '409':
           description: Server group not found
-  /group/{name}/servers:
+  /api/v1/group/{name}/servers:
     get:
       summary: Get all servers of the group
       parameters:
@@ -121,7 +121,7 @@ paths:
           description: Invalid input
         '404':
           description: Server group not found
-  /server:
+  /api/v1/server:
     get:
       summary: Get all servers
       tags: 
@@ -172,7 +172,7 @@ paths:
           description: Invalid input
         '409':
           description: Server already exists
-  /server/{name}:
+  /api/v1/server/{name}:
     get:
       summary: Get the server
       parameters:
@@ -213,7 +213,7 @@ paths:
           description: Invalid input
         '404':
           description: Server not found
-  /template:
+  /api/v1/template:
     get:
       summary: Get all templates
       tags: 
@@ -281,7 +281,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Template'
-  /template/{name}:
+  /api/v1/template/{name}:
     get:
       summary: Get the template
       parameters:
@@ -322,7 +322,7 @@ paths:
           description: Invalid input
         '404':
           description: Template not found
-  /template/{name}/download:
+  /api/v1/template/{name}/download:
     get:
       summary: Downloads the template
       parameters:
