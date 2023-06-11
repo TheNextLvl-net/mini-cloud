@@ -35,7 +35,6 @@ import jakarta.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 @Validated
 @Tag(name = "server", description = "Operations about the servers")
-@RequestMapping("${openapi.miniCloud.base-path:}")
 public interface ServerApi {
 
     default Optional<NativeWebRequest> getRequest() {

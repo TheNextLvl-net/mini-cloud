@@ -8,7 +8,7 @@
   "artifactId": "client",
   "artifactVersion": "1.0.0",
   "booleanGetterPrefix": "is",
-  "requestMappingMode": "api_interface",
+  "requestMappingMode": "none",
   "ignoreAnyOfInEnum": true,
   "hideGenerationTimestamp": true,
   "implicitHeaders": true,
