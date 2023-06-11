@@ -22,7 +22,7 @@ import jakarta.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Port {
 
-  private String name;
+  private String hostname;
 
   /**
    * Gets or Sets protocol
@@ -104,24 +104,24 @@ public class Port {
 
   private PublishModeEnum publishMode;
 
-  public Port name(String name) {
-    this.name = name;
+  public Port hostname(String hostname) {
+    this.hostname = hostname;
     return this;
   }
 
   /**
-   * Get name
-   * @return name
+   * Get hostname
+   * @return hostname
   */
   
-  @Schema(name = "name", example = "minecraft", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("name")
-  public String getName() {
-    return name;
+  @Schema(name = "hostname", example = "minecraft", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("hostname")
+  public String getHostname() {
+    return hostname;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setHostname(String hostname) {
+    this.hostname = hostname;
   }
 
   public Port protocol(ProtocolEnum protocol) {
@@ -213,7 +213,7 @@ public class Port {
       return false;
     }
     Port port = (Port) o;
-    return Objects.equals(this.name, port.name) &&
+    return Objects.equals(this.hostname, port.hostname) &&
         Objects.equals(this.protocol, port.protocol) &&
         Objects.equals(this.targetPort, port.targetPort) &&
         Objects.equals(this.publishedPort, port.publishedPort) &&
@@ -222,14 +222,14 @@ public class Port {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, protocol, targetPort, publishedPort, publishMode);
+    return Objects.hash(hostname, protocol, targetPort, publishedPort, publishMode);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Port {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    hostname: ").append(toIndentedString(hostname)).append("\n");
     sb.append("    protocol: ").append(toIndentedString(protocol)).append("\n");
     sb.append("    targetPort: ").append(toIndentedString(targetPort)).append("\n");
     sb.append("    publishedPort: ").append(toIndentedString(publishedPort)).append("\n");

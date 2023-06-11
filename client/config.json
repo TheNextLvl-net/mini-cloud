@@ -8,11 +8,10 @@
   "artifactId": "client",
   "artifactVersion": "1.0.0",
   "booleanGetterPrefix": "is",
-  "requestMappingMode": "none",
+  "requestMappingMode": "api_interface",
   "ignoreAnyOfInEnum": true,
   "hideGenerationTimestamp": true,
   "implicitHeaders": true,
-  "interfaceOnly": true,
   "skipDefaultInterface": true,
   "useTags": true,
   "useJakartaEe": true

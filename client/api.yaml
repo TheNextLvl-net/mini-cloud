@@ -1,7 +1,8 @@
+---
 openapi: 3.0.3
 info:
   title: MiniCloud API
-  description: |-
+  description: ""
   termsOfService: http://swagger.io/terms/
   contact:
     email: apiteam@swagger.io
@@ -28,14 +29,14 @@ paths:
       tags:
         - server group
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ServerGroup'
+                  $ref: "#/components/schemas/ServerGroup"
     post:
       summary: Create a new server group
       operationId: createGroup
@@ -46,20 +47,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ServerGroup'
+              $ref: "#/components/schemas/ServerGroup"
         required: true
       responses:
-        '201':
+        "201":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServerGroup'
-        '400':
+                $ref: "#/components/schemas/ServerGroup"
+        "400":
           description: Invalid input
-        '409':
+        "409":
           description: Server group already exists
-  /api/v1/group/{name}:
+  "/api/v1/group/{name}":
     get:
       summary: Get the server group
       operationId: getGroup
@@ -67,21 +68,21 @@ paths:
         - name: name
           in: path
           description: Name of the server group
-          required: true
+          required: "true"
           schema:
-            type: string
+            $ref: "#/components/schemas/Identifier"
       tags:
         - server group
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServerGroup'
-        '400':
+                $ref: "#/components/schemas/ServerGroup"
+        "400":
           description: Invalid input
-        '404':
+        "404":
           description: Server group not found
     delete:
       summary: Delete an existing server group
@@ -92,17 +93,17 @@ paths:
           description: Name of the server group
           required: true
           schema:
-            type: string # Pattern
+            $ref: "#/components/schemas/Identifier"
       tags:
         - server group
       responses:
-        '200':
+        "200":
           description: Successful operation
-        '400':
+        "400":
           description: Invalid input
-        '409':
+        "409":
           description: Server group not found
-  /api/v1/group/{name}/servers:
+  "/api/v1/group/{name}/servers":
     get:
       summary: Get all servers of the group
       operationId: getServersInGroup
@@ -112,19 +113,19 @@ paths:
           description: Name of the server group
           required: true
           schema:
-            type: string
+            $ref: "#/components/schemas/Identifier"
       tags:
         - server group
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServerList'
-        '400':
+                $ref: "#/components/schemas/ServerList"
+        "400":
           description: Invalid input
-        '404':
+        "404":
           description: Server group not found
   /api/v1/server:
     get:
@@ -133,14 +134,12 @@ paths:
       tags:
         - server
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Server'
+                $ref: "#/components/schemas/ServerList"
     post:
       summary: Create a new server
       operationId: createServer
@@ -151,25 +150,20 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                group:
-                  type: string
-                  example: lobby
-                  nullable: true
+              $ref: "#/components/schemas/Identifier"
         required: true
       responses:
-        '201':
+        "201":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Server'
-        '400':
+                $ref: "#/components/schemas/Server"
+        "400":
           description: Invalid input
-        '409':
+        "409":
           description: Server already exists
-  /api/v1/server/{name}:
+  "/api/v1/server/{name}":
     get:
       summary: Get the server
       operationId: getServer
@@ -179,19 +173,19 @@ paths:
           description: Name of the server
           required: true
           schema:
-            type: string
+            $ref: "#/components/schemas/Identifier"
       tags:
         - server
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Server'
-        '400':
+                $ref: "#/components/schemas/Server"
+        "400":
           description: Invalid input
-        '404':
+        "404":
           description: Server not found
     delete:
       summary: Delete an existing server
@@ -200,19 +194,19 @@ paths:
         - name: name
           in: path
           description: Name of the server
-          required: true
+          required: "true"
           schema:
-            type: string
+            $ref: "#/components/schemas/Identifier"
       tags:
         - server
       responses:
-        '200':
+        "200":
           description: Successful operation
-        '400':
+        "400":
           description: Invalid input
-        '404':
+        "404":
           description: Server not found
-  /server/{name}/start:
+  "/server/{name}/start":
     post:
       summary: Start the server
       operationId: startServer
@@ -222,17 +216,17 @@ paths:
           description: Name of the server
           required: true
           schema:
-            type: string
+            $ref: "#/components/schemas/Identifier"
       tags:
         - server
       responses:
-        '200':
+        "200":
           description: Successful operation
-        '400':
+        "400":
           description: Invalid input
-        '404':
+        "404":
           description: Server not found
-  /server/{name}/stop:
+  "/server/{name}/stop":
     post:
       summary: Stop the server
       operationId: stopServer
@@ -242,15 +236,15 @@ paths:
           description: Name of the server
           required: true
           schema:
-            type: string
+            $ref: "#/components/schemas/Identifier"
       tags:
         - server
       responses:
-        '200':
+        "200":
           description: Successful operation
-        '400':
+        "400":
           description: Invalid input
-        '404':
+        "404":
           description: Server not found
   /api/v1/template:
     get:
@@ -259,14 +253,14 @@ paths:
       tags:
         - template
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Template'
+                  $ref: "#/components/schemas/Template"
     post:
       summary: Create a new template
       operationId: createTemplate
@@ -277,7 +271,7 @@ paths:
           example: lobby-template
           required: true
           schema:
-            type: string
+            $ref: "#/components/schemas/Identifier"
       requestBody:
         description: The tar binary of the template folder
         content:
@@ -289,13 +283,13 @@ paths:
       tags:
         - template
       responses:
-        '201':
+        "201":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Template'
-        '409':
+                $ref: "#/components/schemas/Template"
+        "409":
           description: Template already exists
     put:
       summary: Update the files of the template
@@ -307,7 +301,7 @@ paths:
           example: lobby-template
           required: true
           schema:
-            type: string
+            $ref: "#/components/schemas/Identifier"
       requestBody:
         description: The tar binary of the template folder
         content:
@@ -319,13 +313,13 @@ paths:
       tags:
         - template
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Template'
-  /api/v1/template/{name}:
+                $ref: "#/components/schemas/Template"
+  "/api/v1/template/{name}":
     get:
       summary: Get the template
       operationId: getTemplate
@@ -335,19 +329,19 @@ paths:
           description: Name of the template
           required: true
           schema:
-            type: string
+            $ref: "#/components/schemas/Identifier"
       tags:
         - template
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Template'
-        '400':
+                $ref: "#/components/schemas/Template"
+        "400":
           description: Invalid input
-        '404':
+        "404":
           description: Template not found
     delete:
       summary: Delete an existing template
@@ -358,19 +352,19 @@ paths:
           description: Name of the template
           required: true
           schema:
-            type: string
+            $ref: "#/components/schemas/Identifier"
       tags:
         - template
       responses:
-        '200':
+        "200":
           description: Successful operation
-        '400':
+        "400":
           description: Invalid input
-        '403':
+        "403":
           description: Template in use
-        '404':
+        "404":
           description: Template not found
-  /api/v1/template/{name}/download:
+  "/api/v1/template/{name}/download":
     get:
       summary: Downloads the template
       operationId: downloadTemplate
@@ -380,22 +374,22 @@ paths:
           description: Name of the template
           required: true
           schema:
-            type: string
+            $ref: "#/components/schemas/Identifier"
       tags:
         - template
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/octet-stream:
               schema:
                 type: string
                 format: binary
-        '204':
+        "204":
           description: Empty template
-        '400':
+        "400":
           description: Invalid input
-        '404':
+        "404":
           description: Template not found
 components:
   schemas:
@@ -403,9 +397,9 @@ components:
       type: object
       properties:
         name:
-          type: string
+          allOf:
+            - $ref: "#/components/schemas/Identifier"
           example: lobby-template
-          pattern: ^[a-zA-Z0-9-_]+$
         command:
           type: string
           example: java -jar server.jar
@@ -418,21 +412,24 @@ components:
         updatedAt:
           type: string
           format: date-time
+    Identifier:
+      type: string
+      pattern: ^[a-zA-Z0-9-_]+$
     ServerGroup:
       type: object
       properties:
         name:
-          type: string
+          allOf:
+            - $ref: "#/components/schemas/Identifier"
           example: lobby
-          pattern: ^[a-zA-Z0-9-_]+$
         template:
-          type: string
+          allOf:
+            - $ref: "#/components/schemas/Identifier"
           example: lobby-template
-          pattern: ^[a-zA-Z0-9-_]+$
         ports:
           type: array
           items:
-            $ref: '#/components/schemas/Port'
+            $ref: "#/components/schemas/Port"
         max-players-per-server:
           type: integer
           format: int32
@@ -440,16 +437,16 @@ components:
     Port:
       type: object
       properties:
-        name:
+        hostname:
           type: string
-          example: "minecraft"
+          example: minecraft
         protocol:
           type: string
           enum:
             - tcp
             - udp
             - sctp
-          example: "tcp"
+          example: tcp
         target-port:
           type: integer
           format: uint16
@@ -460,25 +457,24 @@ components:
           example: 25565
         publish-mode:
           type: string
-          example: "ingress"
+          example: ingress
           enum:
             - ingress
             - host
-
     Server:
       type: object
       properties:
         name:
-          type: string
-          example: "lobby-1"
-          format: ^[a-zA-Z0-9-_]+$
+          allOf:
+            - $ref: "#/components/schemas/Identifier"
+          example: lobby-1
         group:
-          type: string
+          allOf:
+            - $ref: "#/components/schemas/Identifier"
           example: lobby
-          format: ^[a-zA-Z0-9-_]+$
         ip-address:
           type: string
-          example: "10.0.0.11"
+          example: 10.0.0.11
         status:
           type: string
           description: Server Status
@@ -493,12 +489,10 @@ components:
           example: 4
           nullable: false
     ServerList:
-      type: object
-      properties:
-        servers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Server'
+      type: array
+      items:
+        $ref: "#/components/schemas/Server"
+
 #  requestBodies:
 #    Pet:
 #      description: Pet object that needs to be added to the store

@@ -5,7 +5,6 @@
  */
 package minicloud.client.api;
 
-import minicloud.client.model.ApiV1ServerPostRequest;
 import minicloud.client.model.Server;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,100 +35,19 @@ import jakarta.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 @Validated
 @Tag(name = "server", description = "Operations about the servers")
+@RequestMapping("${openapi.miniCloud.base-path:}")
 public interface ServerApi {
-
-    /**
-     * GET /api/v1/server : Get all servers
-     *
-     * @return Successful operation (status code 200)
-     */
-    @Operation(
-        operationId = "apiV1ServerGet",
-        summary = "Get all servers",
-        tags = { "server" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Server.class)))
-            })
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/api/v1/server",
-        produces = { "application/json" }
-    )
-    ResponseEntity<List<Server>> apiV1ServerGet(
-        
-    );
-
-
-    /**
-     * DELETE /api/v1/server/{name} : Delete an existing server
-     *
-     * @param name Name of the server (required)
-     * @return Successful operation (status code 200)
-     *         or Invalid input (status code 400)
-     *         or Server not found (status code 404)
-     */
-    @Operation(
-        operationId = "apiV1ServerNameDelete",
-        summary = "Delete an existing server",
-        tags = { "server" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Successful operation"),
-            @ApiResponse(responseCode = "400", description = "Invalid input"),
-            @ApiResponse(responseCode = "404", description = "Server not found")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.DELETE,
-        value = "/api/v1/server/{name}"
-    )
-    ResponseEntity<Void> apiV1ServerNameDelete(
-        @Parameter(name = "name", description = "Name of the server", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
-
-
-    /**
-     * GET /api/v1/server/{name} : Get the server
-     *
-     * @param name Name of the server (required)
-     * @return Successful operation (status code 200)
-     *         or Invalid input (status code 400)
-     *         or Server not found (status code 404)
-     */
-    @Operation(
-        operationId = "apiV1ServerNameGet",
-        summary = "Get the server",
-        tags = { "server" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = Server.class))
-            }),
-            @ApiResponse(responseCode = "400", description = "Invalid input"),
-            @ApiResponse(responseCode = "404", description = "Server not found")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/api/v1/server/{name}",
-        produces = { "application/json" }
-    )
-    ResponseEntity<Server> apiV1ServerNameGet(
-        @Parameter(name = "name", description = "Name of the server", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
-
 
     /**
      * POST /api/v1/server : Create a new server
      *
-     * @param apiV1ServerPostRequest Create a new server (required)
+     * @param body Create a new server (required)
      * @return Successful operation (status code 201)
      *         or Invalid input (status code 400)
      *         or Server already exists (status code 409)
      */
     @Operation(
-        operationId = "apiV1ServerPost",
+        operationId = "createServer",
         summary = "Create a new server",
         tags = { "server" },
         responses = {
@@ -146,8 +64,90 @@ public interface ServerApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<Server> apiV1ServerPost(
-        @Parameter(name = "ApiV1ServerPostRequest", description = "Create a new server", required = true) @Valid @RequestBody ApiV1ServerPostRequest apiV1ServerPostRequest
+    ResponseEntity<Server> createServer(
+        @Parameter(name = "body", description = "Create a new server", required = true) @Valid@Pattern(regexp = "^[a-zA-Z0-9-_]+$")  @RequestBody String body
+    );
+
+
+    /**
+     * GET /api/v1/server/{name} : Get the server
+     *
+     * @param name Name of the server (required)
+     * @return Successful operation (status code 200)
+     *         or Invalid input (status code 400)
+     *         or Server not found (status code 404)
+     */
+    @Operation(
+        operationId = "getServer",
+        summary = "Get the server",
+        tags = { "server" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = Server.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Invalid input"),
+            @ApiResponse(responseCode = "404", description = "Server not found")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/api/v1/server/{name}",
+        produces = { "application/json" }
+    )
+    ResponseEntity<Server> getServer(
+        @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
+    );
+
+
+    /**
+     * GET /api/v1/server : Get all servers
+     *
+     * @return Successful operation (status code 200)
+     */
+    @Operation(
+        operationId = "getServers",
+        summary = "Get all servers",
+        tags = { "server" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Server.class)))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/api/v1/server",
+        produces = { "application/json" }
+    )
+    ResponseEntity<List<Server>> getServers(
+        
+    );
+
+
+    /**
+     * DELETE /api/v1/server/{name} : Delete an existing server
+     *
+     * @param name Name of the server (required)
+     * @return Successful operation (status code 200)
+     *         or Invalid input (status code 400)
+     *         or Server not found (status code 404)
+     */
+    @Operation(
+        operationId = "removeServer",
+        summary = "Delete an existing server",
+        tags = { "server" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Invalid input"),
+            @ApiResponse(responseCode = "404", description = "Server not found")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.DELETE,
+        value = "/api/v1/server/{name}"
+    )
+    ResponseEntity<Void> removeServer(
+        @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
     );
 
 
@@ -160,7 +160,7 @@ public interface ServerApi {
      *         or Server not found (status code 404)
      */
     @Operation(
-        operationId = "serverNameStartPost",
+        operationId = "startServer",
         summary = "Start the server",
         tags = { "server" },
         responses = {
@@ -173,8 +173,8 @@ public interface ServerApi {
         method = RequestMethod.POST,
         value = "/server/{name}/start"
     )
-    ResponseEntity<Void> serverNameStartPost(
-        @Parameter(name = "name", description = "Name of the server", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
+    ResponseEntity<Void> startServer(
+        @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
     );
 
 
@@ -187,7 +187,7 @@ public interface ServerApi {
      *         or Server not found (status code 404)
      */
     @Operation(
-        operationId = "serverNameStopPost",
+        operationId = "stopServer",
         summary = "Stop the server",
         tags = { "server" },
         responses = {
@@ -200,8 +200,8 @@ public interface ServerApi {
         method = RequestMethod.POST,
         value = "/server/{name}/stop"
     )
-    ResponseEntity<Void> serverNameStopPost(
-        @Parameter(name = "name", description = "Name of the server", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
+    ResponseEntity<Void> stopServer(
+        @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
     );
 
 }

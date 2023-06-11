@@ -78,8 +78,8 @@ public class Server {
    * Get name
    * @return name
   */
-  
-  @Schema(name = "name", example = "lobby-1", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Pattern(regexp = "^[a-zA-Z0-9-_]+$") 
+  @Schema(name = "name", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -98,8 +98,8 @@ public class Server {
    * Get group
    * @return group
   */
-  
-  @Schema(name = "group", example = "lobby", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Pattern(regexp = "^[a-zA-Z0-9-_]+$") 
+  @Schema(name = "group", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("group")
   public String getGroup() {
     return group;

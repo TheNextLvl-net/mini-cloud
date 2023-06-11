@@ -5,8 +5,8 @@
  */
 package minicloud.client.api;
 
+import minicloud.client.model.Server;
 import minicloud.client.model.ServerGroup;
-import minicloud.client.model.ServerList;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -36,119 +36,8 @@ import jakarta.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 @Validated
 @Tag(name = "server group", description = "Operations about the server groups")
+@RequestMapping("${openapi.miniCloud.base-path:}")
 public interface ServerGroupApi {
-
-    /**
-     * GET /api/v1/group : Get all server groups
-     *
-     * @return Successful operation (status code 200)
-     */
-    @Operation(
-        operationId = "apiV1GroupGet",
-        summary = "Get all server groups",
-        tags = { "server group" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ServerGroup.class)))
-            })
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/api/v1/group",
-        produces = { "application/json" }
-    )
-    ResponseEntity<List<ServerGroup>> apiV1GroupGet(
-        
-    );
-
-
-    /**
-     * DELETE /api/v1/group/{name} : Delete an existing server group
-     *
-     * @param name Name of the server group (required)
-     * @return Successful operation (status code 200)
-     *         or Invalid input (status code 400)
-     *         or Server group not found (status code 409)
-     */
-    @Operation(
-        operationId = "apiV1GroupNameDelete",
-        summary = "Delete an existing server group",
-        tags = { "server group" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Successful operation"),
-            @ApiResponse(responseCode = "400", description = "Invalid input"),
-            @ApiResponse(responseCode = "409", description = "Server group not found")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.DELETE,
-        value = "/api/v1/group/{name}"
-    )
-    ResponseEntity<Void> apiV1GroupNameDelete(
-        @Parameter(name = "name", description = "Name of the server group", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
-
-
-    /**
-     * GET /api/v1/group/{name} : Get the server group
-     *
-     * @param name Name of the server group (required)
-     * @return Successful operation (status code 200)
-     *         or Invalid input (status code 400)
-     *         or Server group not found (status code 404)
-     */
-    @Operation(
-        operationId = "apiV1GroupNameGet",
-        summary = "Get the server group",
-        tags = { "server group" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = ServerGroup.class))
-            }),
-            @ApiResponse(responseCode = "400", description = "Invalid input"),
-            @ApiResponse(responseCode = "404", description = "Server group not found")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/api/v1/group/{name}",
-        produces = { "application/json" }
-    )
-    ResponseEntity<ServerGroup> apiV1GroupNameGet(
-        @Parameter(name = "name", description = "Name of the server group", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
-
-
-    /**
-     * GET /api/v1/group/{name}/servers : Get all servers of the group
-     *
-     * @param name Name of the server group (required)
-     * @return Successful operation (status code 200)
-     *         or Invalid input (status code 400)
-     *         or Server group not found (status code 404)
-     */
-    @Operation(
-        operationId = "apiV1GroupNameServersGet",
-        summary = "Get all servers of the group",
-        tags = { "server group" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = ServerList.class))
-            }),
-            @ApiResponse(responseCode = "400", description = "Invalid input"),
-            @ApiResponse(responseCode = "404", description = "Server group not found")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/api/v1/group/{name}/servers",
-        produces = { "application/json" }
-    )
-    ResponseEntity<ServerList> apiV1GroupNameServersGet(
-        @Parameter(name = "name", description = "Name of the server group", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
-
 
     /**
      * POST /api/v1/group : Create a new server group
@@ -159,7 +48,7 @@ public interface ServerGroupApi {
      *         or Server group already exists (status code 409)
      */
     @Operation(
-        operationId = "apiV1GroupPost",
+        operationId = "createGroup",
         summary = "Create a new server group",
         tags = { "server group" },
         responses = {
@@ -176,8 +65,120 @@ public interface ServerGroupApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<ServerGroup> apiV1GroupPost(
+    ResponseEntity<ServerGroup> createGroup(
         @Parameter(name = "ServerGroup", description = "Create a new server group", required = true) @Valid @RequestBody ServerGroup serverGroup
+    );
+
+
+    /**
+     * GET /api/v1/group/{name} : Get the server group
+     *
+     * @param name Name of the server group (required)
+     * @return Successful operation (status code 200)
+     *         or Invalid input (status code 400)
+     *         or Server group not found (status code 404)
+     */
+    @Operation(
+        operationId = "getGroup",
+        summary = "Get the server group",
+        tags = { "server group" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ServerGroup.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Invalid input"),
+            @ApiResponse(responseCode = "404", description = "Server group not found")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/api/v1/group/{name}",
+        produces = { "application/json" }
+    )
+    ResponseEntity<ServerGroup> getGroup(
+        @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server group", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
+    );
+
+
+    /**
+     * GET /api/v1/group : Get all server groups
+     *
+     * @return Successful operation (status code 200)
+     */
+    @Operation(
+        operationId = "getGroups",
+        summary = "Get all server groups",
+        tags = { "server group" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ServerGroup.class)))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/api/v1/group",
+        produces = { "application/json" }
+    )
+    ResponseEntity<List<ServerGroup>> getGroups(
+        
+    );
+
+
+    /**
+     * GET /api/v1/group/{name}/servers : Get all servers of the group
+     *
+     * @param name Name of the server group (required)
+     * @return Successful operation (status code 200)
+     *         or Invalid input (status code 400)
+     *         or Server group not found (status code 404)
+     */
+    @Operation(
+        operationId = "getServersInGroup",
+        summary = "Get all servers of the group",
+        tags = { "server group" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Server.class)))
+            }),
+            @ApiResponse(responseCode = "400", description = "Invalid input"),
+            @ApiResponse(responseCode = "404", description = "Server group not found")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/api/v1/group/{name}/servers",
+        produces = { "application/json" }
+    )
+    ResponseEntity<List<Server>> getServersInGroup(
+        @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server group", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
+    );
+
+
+    /**
+     * DELETE /api/v1/group/{name} : Delete an existing server group
+     *
+     * @param name Name of the server group (required)
+     * @return Successful operation (status code 200)
+     *         or Invalid input (status code 400)
+     *         or Server group not found (status code 409)
+     */
+    @Operation(
+        operationId = "removeGroup",
+        summary = "Delete an existing server group",
+        tags = { "server group" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Invalid input"),
+            @ApiResponse(responseCode = "409", description = "Server group not found")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.DELETE,
+        value = "/api/v1/group/{name}"
+    )
+    ResponseEntity<Void> removeGroup(
+        @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server group", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
     );
 
 }
