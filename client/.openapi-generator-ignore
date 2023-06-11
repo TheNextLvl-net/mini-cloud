@@ -1,1 +1,4 @@
 README.md
+/src/main/java/minicloud/client/api/ServerApiController.java
+/src/main/java/minicloud/client/api/ServerGroupApiController.java
+/src/main/java/minicloud/client/api/TemplateApiController.java

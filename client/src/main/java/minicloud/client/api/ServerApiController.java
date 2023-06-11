@@ -22,5 +22,4 @@ public class ServerApiController implements ServerApi {
     public Optional<NativeWebRequest> getRequest() {
         return Optional.ofNullable(request);
     }
-
 }
