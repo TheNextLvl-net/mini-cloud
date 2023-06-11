@@ -1,8 +1,9 @@
 package minicloud.client.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+import javax.annotation.processing.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
@@ -12,158 +13,148 @@ import java.util.Objects;
 /**
  * ServerGroup
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-11T02:15:12.085392277+02:00[Europe/Berlin]")
 
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-11T02:45:50.392067379+02:00[Europe/Berlin]")
 public class ServerGroup {
-    @JsonProperty("name")
-    private String name;
 
-    @JsonProperty("template")
-    private String template;
+  private String name;
 
-    @JsonProperty("ports")
-    @Valid
-    private List<Port> ports = null;
+  private String template;
 
-    @JsonProperty("max-players-per-server")
-    private Integer maxPlayersPerServer;
+  @Valid
+  private List<@Valid Port> ports;
 
-    public ServerGroup name(String name) {
-        this.name = name;
-        return this;
+  private Integer maxPlayersPerServer;
+
+  public ServerGroup name(String name) {
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+  */
+  @Pattern(regexp = "^[a-zA-Z0-9-_]+$") 
+  @Schema(name = "name", example = "lobby", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("name")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public ServerGroup template(String template) {
+    this.template = template;
+    return this;
+  }
+
+  /**
+   * Get template
+   * @return template
+  */
+  @Pattern(regexp = "^[a-zA-Z0-9-_]+$") 
+  @Schema(name = "template", example = "lobby-template", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("template")
+  public String getTemplate() {
+    return template;
+  }
+
+  public void setTemplate(String template) {
+    this.template = template;
+  }
+
+  public ServerGroup ports(List<@Valid Port> ports) {
+    this.ports = ports;
+    return this;
+  }
+
+  public ServerGroup addPortsItem(Port portsItem) {
+    if (this.ports == null) {
+      this.ports = new ArrayList<>();
     }
+    this.ports.add(portsItem);
+    return this;
+  }
 
-    /**
-     * Get name
-     *
-     * @return name
-     */
-    @ApiModelProperty(example = "lobby", value = "")
+  /**
+   * Get ports
+   * @return ports
+  */
+  @Valid 
+  @Schema(name = "ports", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("ports")
+  public List<@Valid Port> getPorts() {
+    return ports;
+  }
 
-    @Pattern(regexp = "^[a-zA-Z0-9-_]+$")
-    public String getName() {
-        return name;
+  public void setPorts(List<@Valid Port> ports) {
+    this.ports = ports;
+  }
+
+  public ServerGroup maxPlayersPerServer(Integer maxPlayersPerServer) {
+    this.maxPlayersPerServer = maxPlayersPerServer;
+    return this;
+  }
+
+  /**
+   * Get maxPlayersPerServer
+   * @return maxPlayersPerServer
+  */
+  
+  @Schema(name = "max-players-per-server", example = "20", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("max-players-per-server")
+  public Integer getMaxPlayersPerServer() {
+    return maxPlayersPerServer;
+  }
+
+  public void setMaxPlayersPerServer(Integer maxPlayersPerServer) {
+    this.maxPlayersPerServer = maxPlayersPerServer;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    ServerGroup serverGroup = (ServerGroup) o;
+    return Objects.equals(this.name, serverGroup.name) &&
+        Objects.equals(this.template, serverGroup.template) &&
+        Objects.equals(this.ports, serverGroup.ports) &&
+        Objects.equals(this.maxPlayersPerServer, serverGroup.maxPlayersPerServer);
+  }
 
-    public ServerGroup template(String template) {
-        this.template = template;
-        return this;
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, template, ports, maxPlayersPerServer);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ServerGroup {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    template: ").append(toIndentedString(template)).append("\n");
+    sb.append("    ports: ").append(toIndentedString(ports)).append("\n");
+    sb.append("    maxPlayersPerServer: ").append(toIndentedString(maxPlayersPerServer)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
-
-    /**
-     * Get template
-     *
-     * @return template
-     */
-    @ApiModelProperty(example = "lobby-template", value = "")
-
-    @Pattern(regexp = "^[a-zA-Z0-9-_]+$")
-    public String getTemplate() {
-        return template;
-    }
-
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
-    public ServerGroup ports(List<Port> ports) {
-        this.ports = ports;
-        return this;
-    }
-
-    public ServerGroup addPortsItem(Port portsItem) {
-        if (this.ports == null) {
-            this.ports = new ArrayList<>();
-        }
-        this.ports.add(portsItem);
-        return this;
-    }
-
-    /**
-     * Get ports
-     *
-     * @return ports
-     */
-    @ApiModelProperty(value = "")
-
-    @Valid
-
-    public List<Port> getPorts() {
-        return ports;
-    }
-
-    public void setPorts(List<Port> ports) {
-        this.ports = ports;
-    }
-
-    public ServerGroup maxPlayersPerServer(Integer maxPlayersPerServer) {
-        this.maxPlayersPerServer = maxPlayersPerServer;
-        return this;
-    }
-
-    /**
-     * Get maxPlayersPerServer
-     *
-     * @return maxPlayersPerServer
-     */
-    @ApiModelProperty(example = "20", value = "")
-
-
-    public Integer getMaxPlayersPerServer() {
-        return maxPlayersPerServer;
-    }
-
-    public void setMaxPlayersPerServer(Integer maxPlayersPerServer) {
-        this.maxPlayersPerServer = maxPlayersPerServer;
-    }
-
-
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ServerGroup serverGroup = (ServerGroup) o;
-        return Objects.equals(this.name, serverGroup.name) &&
-                Objects.equals(this.template, serverGroup.template) &&
-                Objects.equals(this.ports, serverGroup.ports) &&
-                Objects.equals(this.maxPlayersPerServer, serverGroup.maxPlayersPerServer);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, template, ports, maxPlayersPerServer);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ServerGroup {\n");
-
-        sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    template: ").append(toIndentedString(template)).append("\n");
-        sb.append("    ports: ").append(toIndentedString(ports)).append("\n");
-        sb.append("    maxPlayersPerServer: ").append(toIndentedString(maxPlayersPerServer)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(java.lang.Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
+    return o.toString().replace("\n", "\n    ");
+  }
 }
 

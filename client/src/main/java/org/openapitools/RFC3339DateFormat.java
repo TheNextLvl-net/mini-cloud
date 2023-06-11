@@ -1,23 +1,35 @@
 package org.openapitools;
 
-import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
-import com.fasterxml.jackson.databind.util.ISO8601Utils;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
 
 import java.io.Serial;
+import java.text.DateFormat;
 import java.text.FieldPosition;
+import java.text.ParsePosition;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
-@SuppressWarnings("deprecation")
-public class RFC3339DateFormat extends ISO8601DateFormat {
-
+public class RFC3339DateFormat extends DateFormat {
     @Serial
     private static final long serialVersionUID = 1L;
+    private static final TimeZone TIMEZONE_Z = TimeZone.getTimeZone("UTC");
+
+    private final StdDateFormat fmt = new StdDateFormat()
+            .withTimeZone(TIMEZONE_Z)
+            .withColonInTimeZone(true);
+
+    public RFC3339DateFormat() {
+        this.calendar = new GregorianCalendar();
+    }
+
+    @Override
+    public Date parse(String source, ParsePosition pos) {
+        return fmt.parse(source, pos);
+    }
 
     @Override
     public StringBuffer format(Date date, StringBuffer toAppendTo, FieldPosition fieldPosition) {
-        String value = ISO8601Utils.format(date, true);
-        toAppendTo.append(value);
-        return toAppendTo;
+        return fmt.format(date, toAppendTo, fieldPosition);
     }
-
 }
