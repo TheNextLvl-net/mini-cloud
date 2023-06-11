@@ -24,6 +24,7 @@ paths:
   /api/v1/group:
     get:
       summary: Get all server groups
+      operationId: getGroups
       tags:
         - server group
       responses:
@@ -37,6 +38,7 @@ paths:
                   $ref: '#/components/schemas/ServerGroup'
     post:
       summary: Create a new server group
+      operationId: createGroup
       tags:
         - server group
       requestBody:
@@ -60,6 +62,7 @@ paths:
   /api/v1/group/{name}:
     get:
       summary: Get the server group
+      operationId: getGroup
       parameters:
         - name: name
           in: path
@@ -82,6 +85,7 @@ paths:
           description: Server group not found
     delete:
       summary: Delete an existing server group
+      operationId: removeGroup
       parameters:
         - name: name
           in: path
@@ -101,6 +105,7 @@ paths:
   /api/v1/group/{name}/servers:
     get:
       summary: Get all servers of the group
+      operationId: getServersInGroup
       parameters:
         - name: name
           in: path
@@ -124,6 +129,7 @@ paths:
   /api/v1/server:
     get:
       summary: Get all servers
+      operationId: getServers
       tags:
         - server
       responses:
@@ -137,6 +143,7 @@ paths:
                   $ref: '#/components/schemas/Server'
     post:
       summary: Create a new server
+      operationId: createServer
       tags:
         - server
       requestBody:
@@ -165,6 +172,7 @@ paths:
   /api/v1/server/{name}:
     get:
       summary: Get the server
+      operationId: getServer
       parameters:
         - name: name
           in: path
@@ -187,6 +195,7 @@ paths:
           description: Server not found
     delete:
       summary: Delete an existing server
+      operationId: removeServer
       parameters:
         - name: name
           in: path
@@ -206,6 +215,7 @@ paths:
   /server/{name}/start:
     post:
       summary: Start the server
+      operationId: startServer
       parameters:
         - name: name
           in: path
@@ -225,6 +235,7 @@ paths:
   /server/{name}/stop:
     post:
       summary: Stop the server
+      operationId: stopServer
       parameters:
         - name: name
           in: path
@@ -244,6 +255,7 @@ paths:
   /api/v1/template:
     get:
       summary: Get all templates
+      operationId: getTemplates
       tags:
         - template
       responses:
@@ -257,6 +269,7 @@ paths:
                   $ref: '#/components/schemas/Template'
     post:
       summary: Create a new template
+      operationId: createTemplate
       parameters:
         - name: name
           in: query
@@ -286,6 +299,7 @@ paths:
           description: Template already exists
     put:
       summary: Update the files of the template
+      operationId: updateTemplate
       parameters:
         - name: name
           in: query
@@ -314,6 +328,7 @@ paths:
   /api/v1/template/{name}:
     get:
       summary: Get the template
+      operationId: getTemplate
       parameters:
         - name: name
           in: path
@@ -336,6 +351,7 @@ paths:
           description: Template not found
     delete:
       summary: Delete an existing template
+      operationId: removeTemplate
       parameters:
         - name: name
           in: path
@@ -357,6 +373,7 @@ paths:
   /api/v1/template/{name}/download:
     get:
       summary: Downloads the template
+      operationId: downloadTemplate
       parameters:
         - name: name
           in: path
