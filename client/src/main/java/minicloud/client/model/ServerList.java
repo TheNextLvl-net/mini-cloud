@@ -1,92 +1,90 @@
 package minicloud.client.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import minicloud.client.model.Server;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.util.Objects;
 
 /**
  * ServerList
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-11T01:47:26.496206287+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-11T02:15:12.085392277+02:00[Europe/Berlin]")
 
-public class ServerList   {
-  @JsonProperty("servers")
-  @Valid
-  private List<Server> servers = null;
+public class ServerList {
+    @JsonProperty("servers")
+    @Valid
+    private List<Server> servers = null;
 
-  public ServerList servers(List<Server> servers) {
-    this.servers = servers;
-    return this;
-  }
-
-  public ServerList addServersItem(Server serversItem) {
-    if (this.servers == null) {
-      this.servers = new ArrayList<>();
+    public ServerList servers(List<Server> servers) {
+        this.servers = servers;
+        return this;
     }
-    this.servers.add(serversItem);
-    return this;
-  }
 
-  /**
-   * Get servers
-   * @return servers
-  */
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public List<Server> getServers() {
-    return servers;
-  }
-
-  public void setServers(List<Server> servers) {
-    this.servers = servers;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public ServerList addServersItem(Server serversItem) {
+        if (this.servers == null) {
+            this.servers = new ArrayList<>();
+        }
+        this.servers.add(serversItem);
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get servers
+     *
+     * @return servers
+     */
+    @ApiModelProperty(value = "")
+
+    @Valid
+
+    public List<Server> getServers() {
+        return servers;
     }
-    ServerList serverList = (ServerList) o;
-    return Objects.equals(this.servers, serverList.servers);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(servers);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ServerList {\n");
-    
-    sb.append("    servers: ").append(toIndentedString(servers)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setServers(List<Server> servers) {
+        this.servers = servers;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ServerList serverList = (ServerList) o;
+        return Objects.equals(this.servers, serverList.servers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(servers);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ServerList {\n");
+
+        sb.append("    servers: ").append(toIndentedString(servers)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
 
