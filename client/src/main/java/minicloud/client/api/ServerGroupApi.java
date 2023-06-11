@@ -39,6 +39,10 @@ import jakarta.annotation.Generated;
 @RequestMapping("${openapi.miniCloud.base-path:}")
 public interface ServerGroupApi {
 
+    default Optional<NativeWebRequest> getRequest() {
+        return Optional.empty();
+    }
+
     /**
      * POST /api/v1/group : Create a new server group
      *
@@ -65,9 +69,21 @@ public interface ServerGroupApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<ServerGroup> createGroup(
+    default ResponseEntity<ServerGroup> createGroup(
         @Parameter(name = "ServerGroup", description = "Create a new server group", required = true) @Valid @RequestBody ServerGroup serverGroup
-    );
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"template\" : \"lobby-template\", \"name\" : \"lobby\", \"ports\" : [ { \"target-port\" : 25565, \"hostname\" : \"minecraft\", \"protocol\" : \"tcp\", \"publish-mode\" : \"ingress\", \"published-port\" : 25565 }, { \"target-port\" : 25565, \"hostname\" : \"minecraft\", \"protocol\" : \"tcp\", \"publish-mode\" : \"ingress\", \"published-port\" : 25565 } ], \"max-players-per-server\" : 20 }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -95,9 +111,21 @@ public interface ServerGroupApi {
         value = "/api/v1/group/{name}",
         produces = { "application/json" }
     )
-    ResponseEntity<ServerGroup> getGroup(
+    default ResponseEntity<ServerGroup> getGroup(
         @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server group", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"template\" : \"lobby-template\", \"name\" : \"lobby\", \"ports\" : [ { \"target-port\" : 25565, \"hostname\" : \"minecraft\", \"protocol\" : \"tcp\", \"publish-mode\" : \"ingress\", \"published-port\" : 25565 }, { \"target-port\" : 25565, \"hostname\" : \"minecraft\", \"protocol\" : \"tcp\", \"publish-mode\" : \"ingress\", \"published-port\" : 25565 } ], \"max-players-per-server\" : 20 }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -120,9 +148,21 @@ public interface ServerGroupApi {
         value = "/api/v1/group",
         produces = { "application/json" }
     )
-    ResponseEntity<List<ServerGroup>> getGroups(
+    default ResponseEntity<List<ServerGroup>> getGroups(
         
-    );
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "[ { \"template\" : \"lobby-template\", \"name\" : \"lobby\", \"ports\" : [ { \"target-port\" : 25565, \"hostname\" : \"minecraft\", \"protocol\" : \"tcp\", \"publish-mode\" : \"ingress\", \"published-port\" : 25565 }, { \"target-port\" : 25565, \"hostname\" : \"minecraft\", \"protocol\" : \"tcp\", \"publish-mode\" : \"ingress\", \"published-port\" : 25565 } ], \"max-players-per-server\" : 20 }, { \"template\" : \"lobby-template\", \"name\" : \"lobby\", \"ports\" : [ { \"target-port\" : 25565, \"hostname\" : \"minecraft\", \"protocol\" : \"tcp\", \"publish-mode\" : \"ingress\", \"published-port\" : 25565 }, { \"target-port\" : 25565, \"hostname\" : \"minecraft\", \"protocol\" : \"tcp\", \"publish-mode\" : \"ingress\", \"published-port\" : 25565 } ], \"max-players-per-server\" : 20 } ]";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -150,9 +190,21 @@ public interface ServerGroupApi {
         value = "/api/v1/group/{name}/servers",
         produces = { "application/json" }
     )
-    ResponseEntity<List<Server>> getServersInGroup(
+    default ResponseEntity<List<Server>> getServersInGroup(
         @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server group", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "[ { \"ip-address\" : \"10.0.0.11\", \"online-players\" : 4, \"name\" : \"lobby-1\", \"group\" : \"lobby\", \"status\" : \"starting\" }, { \"ip-address\" : \"10.0.0.11\", \"online-players\" : 4, \"name\" : \"lobby-1\", \"group\" : \"lobby\", \"status\" : \"starting\" } ]";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -177,8 +229,11 @@ public interface ServerGroupApi {
         method = RequestMethod.DELETE,
         value = "/api/v1/group/{name}"
     )
-    ResponseEntity<Void> removeGroup(
+    default ResponseEntity<Void> removeGroup(
         @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server group", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
+    ) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 }

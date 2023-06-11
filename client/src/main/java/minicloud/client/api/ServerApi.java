@@ -38,6 +38,10 @@ import jakarta.annotation.Generated;
 @RequestMapping("${openapi.miniCloud.base-path:}")
 public interface ServerApi {
 
+    default Optional<NativeWebRequest> getRequest() {
+        return Optional.empty();
+    }
+
     /**
      * POST /api/v1/server : Create a new server
      *
@@ -64,9 +68,21 @@ public interface ServerApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<Server> createServer(
+    default ResponseEntity<Server> createServer(
         @Parameter(name = "body", description = "Create a new server", required = true) @Valid@Pattern(regexp = "^[a-zA-Z0-9-_]+$")  @RequestBody String body
-    );
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"ip-address\" : \"10.0.0.11\", \"online-players\" : 4, \"name\" : \"lobby-1\", \"group\" : \"lobby\", \"status\" : \"starting\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -94,9 +110,21 @@ public interface ServerApi {
         value = "/api/v1/server/{name}",
         produces = { "application/json" }
     )
-    ResponseEntity<Server> getServer(
+    default ResponseEntity<Server> getServer(
         @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"ip-address\" : \"10.0.0.11\", \"online-players\" : 4, \"name\" : \"lobby-1\", \"group\" : \"lobby\", \"status\" : \"starting\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -119,9 +147,21 @@ public interface ServerApi {
         value = "/api/v1/server",
         produces = { "application/json" }
     )
-    ResponseEntity<List<Server>> getServers(
+    default ResponseEntity<List<Server>> getServers(
         
-    );
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "[ { \"ip-address\" : \"10.0.0.11\", \"online-players\" : 4, \"name\" : \"lobby-1\", \"group\" : \"lobby\", \"status\" : \"starting\" }, { \"ip-address\" : \"10.0.0.11\", \"online-players\" : 4, \"name\" : \"lobby-1\", \"group\" : \"lobby\", \"status\" : \"starting\" } ]";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -146,9 +186,12 @@ public interface ServerApi {
         method = RequestMethod.DELETE,
         value = "/api/v1/server/{name}"
     )
-    ResponseEntity<Void> removeServer(
+    default ResponseEntity<Void> removeServer(
         @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
+    ) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -173,9 +216,12 @@ public interface ServerApi {
         method = RequestMethod.POST,
         value = "/server/{name}/start"
     )
-    ResponseEntity<Void> startServer(
+    default ResponseEntity<Void> startServer(
         @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
+    ) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -200,8 +246,11 @@ public interface ServerApi {
         method = RequestMethod.POST,
         value = "/server/{name}/stop"
     )
-    ResponseEntity<Void> stopServer(
+    default ResponseEntity<Void> stopServer(
         @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the server", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
+    ) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 }

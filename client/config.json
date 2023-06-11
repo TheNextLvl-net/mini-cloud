@@ -12,7 +12,6 @@
   "ignoreAnyOfInEnum": true,
   "hideGenerationTimestamp": true,
   "implicitHeaders": true,
-  "skipDefaultInterface": true,
   "useTags": true,
   "useJakartaEe": true
 }

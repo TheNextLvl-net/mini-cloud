@@ -5,38 +5,38 @@
  */
 package minicloud.client.api;
 
-import minicloud.client.model.Template;
-import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import minicloud.client.model.Template;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import jakarta.annotation.Generated;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 @Validated
 @Tag(name = "template", description = "Operations about the server templates")
 @RequestMapping("${openapi.miniCloud.base-path:}")
 public interface TemplateApi {
+
+    default Optional<NativeWebRequest> getRequest() {
+        return Optional.empty();
+    }
 
     /**
      * POST /api/v1/template : Create a new template
@@ -63,10 +63,22 @@ public interface TemplateApi {
         produces = { "application/json" },
         consumes = { "application/octet-stream" }
     )
-    ResponseEntity<Template> createTemplate(
+    default ResponseEntity<Template> createTemplate(
         @NotNull @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the template", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "name", required = true) String name,
         @Parameter(name = "body", description = "The tar binary of the template folder", required = true) @Valid @RequestBody org.springframework.core.io.Resource body
-    );
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"createdAt\" : \"2000-01-23T04:56:07.000+00:00\", \"size\" : 0, \"name\" : \"lobby-template\", \"command\" : \"java -jar server.jar\", \"updatedAt\" : \"2000-01-23T04:56:07.000+00:00\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -96,9 +108,12 @@ public interface TemplateApi {
         value = "/api/v1/template/{name}/download",
         produces = { "application/octet-stream" }
     )
-    ResponseEntity<org.springframework.core.io.Resource> downloadTemplate(
+    default ResponseEntity<org.springframework.core.io.Resource> downloadTemplate(
         @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the template", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
+    ) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -126,9 +141,21 @@ public interface TemplateApi {
         value = "/api/v1/template/{name}",
         produces = { "application/json" }
     )
-    ResponseEntity<Template> getTemplate(
+    default ResponseEntity<Template> getTemplate(
         @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the template", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"createdAt\" : \"2000-01-23T04:56:07.000+00:00\", \"size\" : 0, \"name\" : \"lobby-template\", \"command\" : \"java -jar server.jar\", \"updatedAt\" : \"2000-01-23T04:56:07.000+00:00\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -151,9 +178,21 @@ public interface TemplateApi {
         value = "/api/v1/template",
         produces = { "application/json" }
     )
-    ResponseEntity<List<Template>> getTemplates(
+    default ResponseEntity<List<Template>> getTemplates(
         
-    );
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "[ { \"createdAt\" : \"2000-01-23T04:56:07.000+00:00\", \"size\" : 0, \"name\" : \"lobby-template\", \"command\" : \"java -jar server.jar\", \"updatedAt\" : \"2000-01-23T04:56:07.000+00:00\" }, { \"createdAt\" : \"2000-01-23T04:56:07.000+00:00\", \"size\" : 0, \"name\" : \"lobby-template\", \"command\" : \"java -jar server.jar\", \"updatedAt\" : \"2000-01-23T04:56:07.000+00:00\" } ]";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -180,9 +219,12 @@ public interface TemplateApi {
         method = RequestMethod.DELETE,
         value = "/api/v1/template/{name}"
     )
-    ResponseEntity<Void> removeTemplate(
+    default ResponseEntity<Void> removeTemplate(
         @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the template", required = true, in = ParameterIn.PATH) @PathVariable("name") String name
-    );
+    ) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 
     /**
@@ -208,9 +250,21 @@ public interface TemplateApi {
         produces = { "application/json" },
         consumes = { "application/octet-stream" }
     )
-    ResponseEntity<Template> updateTemplate(
+    default ResponseEntity<Template> updateTemplate(
         @NotNull @Pattern(regexp = "^[a-zA-Z0-9-_]+$") @Parameter(name = "name", description = "Name of the template", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "name", required = true) String name,
         @Parameter(name = "body", description = "The tar binary of the template folder", required = true) @Valid @RequestBody org.springframework.core.io.Resource body
-    );
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"createdAt\" : \"2000-01-23T04:56:07.000+00:00\", \"size\" : 0, \"name\" : \"lobby-template\", \"command\" : \"java -jar server.jar\", \"updatedAt\" : \"2000-01-23T04:56:07.000+00:00\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
 
 }
