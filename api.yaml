@@ -68,7 +68,7 @@ paths:
         - name: name
           in: path
           description: Name of the server group
-          required: true
+          required: "true"
           schema:
             $ref: "#/components/schemas/Identifier"
       tags:
@@ -391,6 +391,31 @@ paths:
           description: Invalid input
         "404":
           description: Template not found
+  "/api/v1/events":
+    post:
+      summary: "Monitor events"
+      operationId: "listenEvents"
+      requestBody:
+        content:
+          filters:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: ["server", "server-group", "template"]
+                  example: "template"
+                name:
+                  $ref: '#/components/schemas/Identifier'
+      responses:
+        "200":
+          description: "No error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+          
+        
 components:
   schemas:
     Template:
@@ -414,7 +439,10 @@ components:
           format: date-time
     Identifier:
       type: string
-      pattern: ^[a-zA-Z0-9-_]+$
+      pattern: ^[a-zA-Z0-9-_]{3,32}$
+      minLength: 3
+      maxLength: 32
+
     ServerGroup:
       type: object
       properties:
@@ -478,9 +506,9 @@ components:
         status:
           type: string
           description: Server Status
-          example: starting
+          example: online
           enum:
-            - stating
+            - starting
             - online
             - offline
         online-players:
@@ -492,25 +520,27 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Server"
-
-#  requestBodies:
-#    Pet:
-#      description: Pet object that needs to be added to the store
-#      content:
-#        application/json:
-#          schema:
-#            $ref: '#/components/schemas/Pet'
-#        application/xml:
-#          schema:
-#            $ref: '#/components/schemas/Pet'
-#    UserArray:
-#      description: List of user object
-#      content:
-#        application/json:
-#          schema:
-#            type: array
-#            items:
-#              $ref: '#/components/schemas/User'
+    Event:
+      type: object
+      properties:
+        type:
+          type: string
+          example: server
+          enum: ["server", "server-group", "template"]
+        action:
+          description: "The type of the event"
+          type: string
+          example: "create"
+        time:
+          description: "Timestamp of the event"
+          type: "integer"
+          format: "uint64"
+          example: 1629574695
+        object:
+          oneOf:
+            - $ref: '#/components/schemas/Server'
+            - $ref: '#/components/schemas/Template'
+            - $ref: '#/components/schemas/ServerGroup'
 #  securitySchemes:
 #    petstore_auth:
 #      type: oauth2
