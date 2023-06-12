@@ -11,7 +11,7 @@
 package server
 
 type Port struct {
-	Hostname string `json:"hostname,omitempty"`
+	Name string `json:"name,omitempty"`
 
 	Protocol string `json:"protocol,omitempty"`
 

@@ -2,13 +2,14 @@ package group
 
 import (
 	"context"
-	"easy-cloud-server/cmd/minicloudd/app"
-	sw "easy-cloud-server/swagger/go/model"
 	"encoding/json"
 	"net/http"
 	"strconv"
 
-	mc "easy-cloud-server"
+	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/cmd/minicloudd/app"
+	sw "github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/server"
+
+	mc "github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/filters"

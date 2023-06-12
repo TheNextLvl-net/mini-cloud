@@ -455,7 +455,7 @@ components:
     Port:
       type: object
       properties:
-        hostname:
+        name:
           type: string
           example: minecraft
         protocol:
