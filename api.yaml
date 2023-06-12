@@ -68,7 +68,7 @@ paths:
         - name: name
           in: path
           description: Name of the server group
-          required: "true"
+          required: true
           schema:
             $ref: "#/components/schemas/Identifier"
       tags:
@@ -194,7 +194,7 @@ paths:
         - name: name
           in: path
           description: Name of the server
-          required: "true"
+          required: true
           schema:
             $ref: "#/components/schemas/Identifier"
       tags:
