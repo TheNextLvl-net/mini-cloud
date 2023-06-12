@@ -18,7 +18,9 @@ tasks.openApiGenerate {
     generateAliasAsModel.set(false)
     enablePostProcessFile.set(true)
     configOptions.set(mapOf(
-            "outputAsLibrary" to "true",
-            "sourceFolder" to "server"
+            //"outputAsLibrary" to "true",
+            "packageName" to "server",
+            "sourceFolder" to "server",
+            "onlyInterfaces" to "true",
     ))
 }

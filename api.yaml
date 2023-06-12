@@ -70,7 +70,7 @@ paths:
         - name: name
           in: path
           description: Name of the server group
-          required: "true"
+          required: true
           schema:
             $ref: "#/components/schemas/Identifier"
       tags:
@@ -152,7 +152,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Identifier"
+              type: object
+              properties:
+                name:
+                  $ref: "#/components/schemas/Identifier"
         required: true
       responses:
         "201":
@@ -248,7 +251,7 @@ paths:
           description: Invalid input
         "404":
           description: Server not found
-  /api/v1/template:
+  "/api/v1/template":
     get:
       summary: Get all templates
       operationId: getTemplates
@@ -409,7 +412,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EventMessage' 
+                $ref: '#/components/schemas/EventMessage'
 components:
   schemas:
     Template:
