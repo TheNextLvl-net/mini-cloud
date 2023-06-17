@@ -156,6 +156,8 @@ paths:
               properties:
                 name:
                   $ref: "#/components/schemas/Identifier"
+                group:
+                  $ref: "#/components/schemas/Identifier"
         required: true
       responses:
         "201":
@@ -166,6 +168,8 @@ paths:
                 $ref: "#/components/schemas/Server"
         "400":
           description: Invalid input
+        "404":
+          description: Server group not found
         "409":
           description: Server already exists
   "/api/v1/server/{name}":
