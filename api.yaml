@@ -24,7 +24,7 @@ tags:
   - name: system
     description: Operations about the system
 paths:
-  /api/v1/group:
+  "/api/v1/group":
     get:
       summary: Get all server groups
       operationId: getGroups
@@ -129,7 +129,7 @@ paths:
           description: Invalid input
         "404":
           description: Server group not found
-  /api/v1/server:
+  "/api/v1/server":
     get:
       summary: Get all servers
       operationId: getServers
@@ -211,7 +211,7 @@ paths:
           description: Invalid input
         "404":
           description: Server not found
-  "/server/{name}/start":
+  "/api/v1/server/{name}/start":
     post:
       summary: Start the server
       operationId: startServer
@@ -231,7 +231,7 @@ paths:
           description: Invalid input
         "404":
           description: Server not found
-  "/server/{name}/stop":
+  "/api/v1/server/{name}/stop":
     post:
       summary: Stop the server
       operationId: stopServer
