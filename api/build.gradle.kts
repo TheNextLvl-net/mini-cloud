@@ -21,6 +21,5 @@ dependencies {
     implementation("org.projectlombok:lombok:1.18.26")
     annotationProcessor("org.projectlombok:lombok:1.18.26")
 
-    compileOnly("org.jetbrains:annotations:24.0.0")
     compileOnly("net.thenextlvl.core:annotations:1.0.0")
 }
