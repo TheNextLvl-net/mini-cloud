@@ -1,6 +1,6 @@
 package minicloud.api.template;
 
-import minicloud.api.object.IdentifiableObject;
+import minicloud.api.object.Identifier;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +8,14 @@ import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.util.concurrent.CompletableFuture;
 
-public interface Template extends IdentifiableObject {
+public interface Template {
+    /**
+     * Get the name identifier of the template
+     *
+     * @return the name identifier
+     */
+    Identifier getName();
+
     /**
      * Get the start command of the template
      *

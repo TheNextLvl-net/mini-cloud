@@ -1,11 +1,12 @@
 package minicloud.api.group;
 
-import org.jetbrains.annotations.Nullable;
+import minicloud.api.object.Identifier;
+import minicloud.api.server.Server;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface GroupManager {
+public interface ServerGroupManager {
     /**
      * Get a list of all groups
      *
@@ -14,25 +15,33 @@ public interface GroupManager {
     List<ServerGroup> getGroups();
 
     /**
+     * Get all servers associated with the given group
+     *
+     * @param group the group
+     * @return all servers in the given group
+     */
+    List<Server> getServers(Identifier group);
+
+    /**
      * Get an existing group
      *
      * @param name the name of the desired group
      * @return the desired group
      */
-    @Nullable Optional<ServerGroup> getGroup(String name);
+    Optional<ServerGroup> getGroup(Identifier name);
 
     /**
      * Create a new group
      *
-     * @param name the name of the group
+     * @param group the name of the group
      * @return the new group
      */
-    ServerGroup createGroup(String name);
+    ServerGroup createGroup(ServerGroup group);
 
     /**
      * Remove an existing group
      *
      * @param group the group to remove
      */
-    void removeGroup(ServerGroup group);
+    void removeGroup(Identifier group);
 }

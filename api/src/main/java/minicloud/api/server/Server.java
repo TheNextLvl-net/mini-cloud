@@ -1,17 +1,32 @@
 package minicloud.api.server;
 
-import minicloud.api.object.IdentifiableObject;
+import minicloud.api.group.ServerGroup;
+import minicloud.api.object.Identifier;
 
 import java.net.InetAddress;
 import java.util.concurrent.CompletableFuture;
 
-public interface Server extends IdentifiableObject {
+public interface Server {
+    /**
+     * Get the name identifier of the server
+     *
+     * @return the name identifier
+     */
+    Identifier getName();
+
     /**
      * Get the associated group of the server
      *
      * @return the group
      */
-    String getGroup();
+    ServerGroup getGroup();
+
+    /**
+     * Get the group identifier of the server
+     *
+     * @return the group identifier
+     */
+    Identifier getGroupId();
 
     /**
      * Get the internet address of the server
@@ -37,14 +52,14 @@ public interface Server extends IdentifiableObject {
     /**
      * Start the server if it is offline
      *
-     * @return a completable future indicating whether the server started
+     * @return a completable future completing when the server started or failed to start
      */
     CompletableFuture<Void> start();
 
     /**
      * Stop the server if it is running
      *
-     * @return a completable future indicating whether the server stopped
+     * @return a completable future completing when the server stopped or failed to stop
      */
     CompletableFuture<Void> stop();
 }

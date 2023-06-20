@@ -1,10 +1,10 @@
 package minicloud.api.server;
 
-import minicloud.api.server.error.ServerNotOfflineException;
-import minicloud.api.template.Template;
+import minicloud.api.object.Identifier;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public interface ServerManager {
     /**
@@ -20,23 +20,37 @@ public interface ServerManager {
      * @param name the name of the desired server
      * @return the desired server
      */
-    Optional<Server> getServer(String name);
+    Optional<Server> getServer(Identifier name);
+
+    /**
+     * Start a server if it is offline
+     *
+     * @param server the server to start
+     * @return a completable future completing when the server started or failed to start
+     */
+    CompletableFuture<Void> start(Identifier server);
+
+    /**
+     * Stop a server if it is running
+     *
+     * @param server the server to stop
+     * @return a completable future completing when the server stopped or failed to stop
+     */
+    CompletableFuture<Void> stop(Identifier server);
 
     /**
      * Create a new server
      *
-     * @param name     the name of the server
-     * @param template the template to create the server from
+     * @param name  the name of the server
+     * @param group the group the server will be associated with
      * @return the new server
      */
-    Server createServer(Template template, String name);
+    Server createServer(Identifier name, Identifier group);
 
     /**
      * Remove an existing server
      *
      * @param server the server to remove
-     * @return whether the server's files could be removed
-     * @throws ServerNotOfflineException thrown when the server is not offline
      */
-    boolean removeServer(Server server) throws ServerNotOfflineException;
+    void removeServer(Identifier server);
 }

@@ -1,6 +1,6 @@
 package minicloud.api;
 
-import minicloud.api.group.GroupManager;
+import minicloud.api.group.ServerGroupManager;
 import minicloud.api.server.ServerManager;
 import minicloud.api.template.TemplateManager;
 
@@ -10,7 +10,7 @@ public interface CloudProvider {
      *
      * @return the group manager
      */
-    GroupManager getGroupManager();
+    ServerGroupManager getGroupManager();
 
     /**
      * Get the server manager

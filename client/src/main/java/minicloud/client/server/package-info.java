@@ -1,6 +1,6 @@
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package minicloud.api.object;
+@ParametersAreNonnullByDefault
+package minicloud.client.server;
 
 import core.annotation.MethodsReturnNonnullByDefault;
 import core.annotation.ParametersAreNonnullByDefault;

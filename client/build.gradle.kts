@@ -11,6 +11,18 @@ java {
     sourceCompatibility = JavaVersion.VERSION_19
 }
 
+repositories {
+    mavenCentral()
+    maven("https://repo.thenextlvl.net/releases")
+}
+
+dependencies {
+    implementation(project(":api"))
+    implementation("org.projectlombok:lombok:1.18.26")
+    implementation("org.jetbrains:annotations:24.0.0")
+    compileOnly("net.thenextlvl.core:annotations:1.0.0")
+}
+
 tasks.openApiGenerate {
     generatorName.set("java")
     library.set("okhttp-gson")

@@ -3,11 +3,10 @@ package minicloud.api.networking;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import minicloud.api.object.IdentifiableObject;
 
 @Getter
 @RequiredArgsConstructor
-public class Port implements IdentifiableObject {
+public class Port {
     private final @SerializedName("name") String name;
     private final @SerializedName("protocol") Protocol protocol;
     private final @SerializedName("target-port") int targetPort;

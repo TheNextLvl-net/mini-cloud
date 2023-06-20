@@ -1,0 +1,4 @@
+@MethodsReturnNonnullByDefault
+package minicloud.client;
+
+import core.annotation.MethodsReturnNonnullByDefault;

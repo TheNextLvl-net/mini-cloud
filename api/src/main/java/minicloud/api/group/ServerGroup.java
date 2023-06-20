@@ -1,19 +1,33 @@
 package minicloud.api.group;
 
 import minicloud.api.networking.Port;
-import minicloud.api.object.IdentifiableObject;
-import minicloud.api.template.Template;
+import minicloud.api.object.Identifier;
 import minicloud.api.server.Server;
+import minicloud.api.template.Template;
 
 import java.util.List;
 
-public interface ServerGroup extends IdentifiableObject {
+public interface ServerGroup {
+    /**
+     * Get the name identifier of the group
+     *
+     * @return the name identifier
+     */
+    Identifier getName();
+
     /**
      * Get the template the group is providing
      *
      * @return the template the group provides
      */
     Template getTemplate();
+
+    /**
+     * Get the template identifier of the group
+     *
+     * @return the template identifier
+     */
+    Identifier getTemplateId();
 
     /**
      * Get all ports this group can use
