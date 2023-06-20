@@ -103,7 +103,7 @@ paths:
           description: Successful operation
         "400":
           description: Invalid input
-        "409":
+        "404":
           description: Server group not found
   "/api/v1/group/{name}/servers":
     get:
