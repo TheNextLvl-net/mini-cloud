@@ -105,12 +105,12 @@ paths:
           description: Invalid input
         "404":
           description: Server group not found
-  "/api/v1/group/{name}/servers":
+  "/api/v1/group/{group}/servers":
     get:
       summary: Get all servers of the group
       operationId: getServersInGroup
       parameters:
-        - name: name
+        - name: group
           in: path
           description: Name of the server group
           required: true
