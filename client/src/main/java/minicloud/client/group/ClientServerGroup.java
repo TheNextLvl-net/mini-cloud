@@ -1,44 +1,41 @@
 package minicloud.client.group;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import minicloud.api.group.ServerGroup;
 import minicloud.api.networking.Port;
+import minicloud.api.object.Identifier;
 import minicloud.api.server.Server;
 import minicloud.api.template.Template;
+import minicloud.client.http.Requests;
 
+import java.io.IOException;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+@Getter
+@RequiredArgsConstructor
 public class ClientServerGroup implements ServerGroup {
-    @Override
-    public Template getTemplate() {
-        return null;
-    }
+    private final Identifier name;
+    private final Identifier templateId;
 
-    @Override
-    public List<Port> getPorts() {
-        return null;
-    }
+    private final Template template;
+    private final List<Port> ports;
+    private final int maxPlayersPerServer;
 
     @Override
     public List<Server> getServers() {
-        /*
-         GET /api/v1/group/{group}/servers
-         200
-            ServerList
-         400
-            Invalid input
-         404
-            Server group not found
-         */
-        return null;
-    }
-
-    @Override
-    public int getMaxPlayersPerServer() {
-        return 0;
-    }
-
-    @Override
-    public String getName() {
-        return null;
+        try {
+            var servers = Requests.<String>get("/api/v1/group/" + getName() + "/servers")
+                    .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
+                    .body();
+            return new Gson().fromJson(servers, new TypeToken<>() {
+            });
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

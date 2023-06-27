@@ -1,21 +1,36 @@
 package minicloud.client.server;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import minicloud.api.object.Identifier;
 import minicloud.api.server.Server;
 import minicloud.api.server.ServerManager;
+import minicloud.client.http.Requests;
 
+import java.io.IOException;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
+@Getter
+@RequiredArgsConstructor
 public class ClientServerManager implements ServerManager {
+    private final String serverUrl;
+
     @Override
     public List<Server> getServers() {
-        /*
-        GET /api/v1/server
-        200 -> array Server
-         */
-        return null;
+        try {
+            var servers = Requests.<String>get("/api/v1/server")
+                    .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
+                    .body();
+            return new Gson().fromJson(servers, new TypeToken<>() {
+            });
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -28,30 +43,6 @@ public class ClientServerManager implements ServerManager {
         404 -> Server not found
          */
         return Optional.empty();
-    }
-
-    @Override
-    public CompletableFuture<Void> start(Identifier server) {
-        /*
-        POST /api/v1/server/{name}/start
-        name -> Identifier
-        200 -> success
-        400 -> Invalid input
-        404 -> Server not found
-         */
-        return null;
-    }
-
-    @Override
-    public CompletableFuture<Void> stop(Identifier server) {
-        /*
-        POST /api/v1/server/{name}/stop
-        name -> Identifier
-        200 -> success
-        400 -> Invalid input
-        404 -> Server not found
-         */
-        return null;
     }
 
     @Override

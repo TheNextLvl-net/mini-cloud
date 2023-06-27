@@ -4,7 +4,6 @@ import minicloud.api.object.Identifier;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 public interface ServerManager {
     /**
@@ -21,22 +20,6 @@ public interface ServerManager {
      * @return the desired server
      */
     Optional<Server> getServer(Identifier name);
-
-    /**
-     * Start a server if it is offline
-     *
-     * @param server the server to start
-     * @return a completable future completing when the server started or failed to start
-     */
-    CompletableFuture<Void> start(Identifier server);
-
-    /**
-     * Stop a server if it is running
-     *
-     * @param server the server to stop
-     * @return a completable future completing when the server stopped or failed to stop
-     */
-    CompletableFuture<Void> stop(Identifier server);
 
     /**
      * Create a new server

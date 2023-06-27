@@ -4,6 +4,7 @@ import minicloud.api.group.ServerGroup;
 import minicloud.api.object.Identifier;
 
 import java.net.InetAddress;
+import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
 
 public interface Server {
@@ -54,12 +55,12 @@ public interface Server {
      *
      * @return a completable future completing when the server started or failed to start
      */
-    CompletableFuture<Void> start();
+    CompletableFuture<HttpResponse<Void>> start();
 
     /**
      * Stop the server if it is running
      *
      * @return a completable future completing when the server stopped or failed to stop
      */
-    CompletableFuture<Void> stop();
+    CompletableFuture<HttpResponse<Void>> stop();
 }
