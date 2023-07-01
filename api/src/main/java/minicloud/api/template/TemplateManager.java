@@ -2,7 +2,9 @@ package minicloud.api.template;
 
 import minicloud.api.object.Identifier;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,20 +19,20 @@ public interface TemplateManager {
     /**
      * Get an existing template
      *
-     * @param name the name of the desired template
+     * @param template the identifier of the desired template
      * @return the desired template
      */
-    Optional<Template> getTemplate(Identifier name);
+    Optional<Template> getTemplate(Identifier template);
 
     /**
      * Create a new template
      *
-     * @param name      the name of the template
+     * @param template  the name of the template
      * @param fileInput the file input to use as a template
      * @return the new template
      * @throws IllegalStateException thrown if a similar template already exists
      */
-    Template createTemplate(Identifier name, FileInputStream fileInput) throws IllegalStateException;
+    Template createTemplate(Identifier template, FileInputStream fileInput) throws IllegalStateException;
 
     /**
      * Remove an existing template
