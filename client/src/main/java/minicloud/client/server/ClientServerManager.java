@@ -10,10 +10,13 @@ import minicloud.api.server.ServerManager;
 import minicloud.client.http.Requests;
 
 import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Getter
 @RequiredArgsConstructor
@@ -23,7 +26,7 @@ public class ClientServerManager implements ServerManager {
     @Override
     public List<Server> getServers() {
         try {
-            var servers = Requests.<String>get("/api/v1/server")
+            var servers = Requests.<String>get(serverUrl + "/api/v1/server")
                     .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
                     .body();
             return new Gson().fromJson(servers, new TypeToken<>() {
@@ -35,39 +38,56 @@ public class ClientServerManager implements ServerManager {
 
     @Override
     public Optional<Server> getServer(Identifier name) {
-        /*
-        GET /api/v1/server/{name}
-        name -> Identifier
-        200 -> Server
-        400 -> Invalid input
-        404 -> Server not found
-         */
-        return Optional.empty();
+        try {
+            var server = Requests.<String>get(serverUrl + "/api/v1/server/" + name)
+                    .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
+                    .body();
+            return Optional.ofNullable(new Gson().fromJson(server, new TypeToken<>() {
+            }));
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Server createServer(Identifier name, Identifier group) {
-        /*
-        POST /api/v1/server
-        body
-            name -> Identifier
-            group -> Identifier
-        201 -> Server
-        400 -> Invalid input
-        404 -> Server group not found
-        409 -> Server already exists
-         */
-        return null;
+        try {
+            var server = Requests.<String>post(serverUrl + "/api/v1/server", HttpRequest.BodyPublishers.concat(
+                            HttpRequest.BodyPublishers.ofString(name.toString(), StandardCharsets.UTF_8),
+                            HttpRequest.BodyPublishers.ofString(group.toString(), StandardCharsets.UTF_8)))
+                    .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
+                    .body();
+            return new Gson().fromJson(server, new TypeToken<>() {
+            });
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void removeServer(Identifier server) {
-        /*
-        GET /api/v1/server/{name}
-        name -> Identifier
-        200 -> success
-        400 -> Invalid input
-        404 -> Server not found
-         */
+        try {
+            Requests.<Void>delete(serverUrl + "/api/v1/server/" + server)
+                    .send(HttpResponse.BodyHandlers.discarding())
+                    .body();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public CompletableFuture<HttpResponse<Void>> start(Identifier server) {
+        return Requests.<Void>post(serverUrl + "/api/v1/server/" + server + "/start",
+                        HttpRequest.BodyPublishers.noBody())
+                .timeout(Duration.ofMinutes(5))
+                .sendAsync(HttpResponse.BodyHandlers.discarding());
+    }
+
+    @Override
+    public CompletableFuture<HttpResponse<Void>> stop(Identifier server) {
+        return Requests.<Void>post(serverUrl + "/api/v1/server/" + server + "/stop",
+                        HttpRequest.BodyPublishers.noBody())
+                .timeout(Duration.ofMinutes(5))
+                .sendAsync(HttpResponse.BodyHandlers.discarding());
     }
 }
