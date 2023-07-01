@@ -50,4 +50,6 @@ func Run() {
 
 	log.Printf("Starting server...")
 	log.Fatal(http.ListenAndServe(":8080", server.Logger(router, "Handles")))
+
+	// success message and address:port
 }
