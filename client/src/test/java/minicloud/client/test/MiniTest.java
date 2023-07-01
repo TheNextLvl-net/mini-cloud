@@ -16,7 +16,7 @@ import java.util.List;
 public class MiniTest {
 
     public static void main(String[] args) throws FileNotFoundException {
-        CloudProvider cloud = new ClientCloudProvider("http://0.0.0.0");
+        CloudProvider cloud = new ClientCloudProvider("http://0.0.0.0:8080");
         var serverManager = cloud.getServerManager();
         var groupManager = cloud.getGroupManager();
         var templateManager = cloud.getTemplateManager();
