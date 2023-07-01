@@ -1,52 +1,32 @@
 package minicloud.api.group;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import minicloud.api.networking.Port;
 import minicloud.api.object.Identifier;
-import minicloud.api.server.Server;
-import minicloud.api.template.Template;
 
 import java.util.List;
 
-public interface ServerGroup {
+@Getter
+@RequiredArgsConstructor
+public class ServerGroup {
     /**
      * Get the name identifier of the group
-     *
-     * @return the name identifier
      */
-    Identifier getName();
-
-    /**
-     * Get the template the group is providing
-     *
-     * @return the template the group provides
-     */
-    Template getTemplate();
+    private final Identifier name;
 
     /**
      * Get the template identifier of the group
-     *
-     * @return the template identifier
      */
-    Identifier getTemplateId();
+    private final Identifier template;
 
     /**
      * Get all ports this group can use
-     *
-     * @return a list of ports
      */
-    List<Port> getPorts();
-
-    /**
-     * Get all servers associated with this group
-     *
-     * @return a list of servers
-     */
-    List<Server> getServers();
+    private final List<Port> ports;
 
     /**
      * Get the max player count each server in this group can have
-     *
-     * @return the max player count per server
      */
-    int getMaxPlayersPerServer();
+    private final int maxPlayersPerServer;
 }
