@@ -255,6 +255,38 @@ paths:
           description: Invalid input
         "404":
           description: Server not found
+  "/api/v1/server/{name}/players":
+    post:
+      summary: Set the online players
+      operationId: setOnlinePlayers
+      requestBody:
+        description: Set the online players
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                players:
+                  type: integer
+                  minimum: 0
+                  example: 20
+
+      parameters:
+        - name: name
+          in: path
+          description: Name of the server
+          required: true
+          schema:
+            $ref: "#/components/schemas/Identifier"
+      tags:
+        - server
+      responses:
+        "200":
+          description: Successful operation
+        "400":
+          description: Invalid input
+        "404":
+          description: Server not found
   "/api/v1/template":
     get:
       summary: Get all templates
