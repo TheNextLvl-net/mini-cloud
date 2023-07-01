@@ -17,7 +17,7 @@ services:
       - "distribution"
   distribution:
     build: distribution
-    container_name: registry
+    container_name: minicloud-registry
     restart: always
     ports:
       - 5000:5000
