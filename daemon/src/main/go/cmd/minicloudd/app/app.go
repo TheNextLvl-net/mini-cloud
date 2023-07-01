@@ -21,6 +21,11 @@ func Run() {
 	if err != nil {
 		panic(err)
 	}
+	ping, err := DockerClient.Ping(context.Background())
+	if err != nil {
+		panic(fmt.Errorf("cannot access docker"))
+	}
+	fmt.Printf("The minicloud runs on %s docker using api version %s\n", ping.OSType, ping.APIVersion)
 
 	_, err = DockerClient.SwarmInspect(context.Background())
 	if err != nil {

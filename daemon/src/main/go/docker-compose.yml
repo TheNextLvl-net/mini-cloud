@@ -24,11 +24,9 @@ services:
       - /var/lib/registry:/var/lib/registry
     networks:
       - minicloud
-
 networks:
   minicloud:
     driver: bridge
-    name: minicloud
     enable_ipv6: false
     attachable: true
     labels:
