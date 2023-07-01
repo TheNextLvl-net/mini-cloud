@@ -1,6 +1,7 @@
 package minicloud.api.group;
 
 import minicloud.api.object.Identifier;
+import minicloud.api.server.Server;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,14 @@ public interface ServerGroupManager {
      * @return all groups
      */
     List<ServerGroup> getGroups();
+
+    /**
+     * Get a list of all servers associated with the given group
+     *
+     * @param group the group to get the servers from
+     * @return all servers in the given group
+     */
+    List<Server> getServers(Identifier group);
 
     /**
      * Get an existing group

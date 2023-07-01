@@ -38,4 +38,22 @@ public interface TemplateManager {
      * @param template the template to remove
      */
     void removeTemplate(Identifier template);
+
+    /**
+     * Update a template based on a file input stream
+     *
+     * @param template  the template to update the files for
+     * @param fileInput the file input to use as a template
+     * @return the updated template
+     */
+    Template updateFiles(Identifier template, FileInputStream fileInput);
+
+    /**
+     * Download the files of a given template
+     *
+     * @param template    the template to download the files from
+     * @param destination the destination to save the template files at
+     * @return the input stream
+     */
+    InputStream downloadFiles(Identifier template, File destination);
 }
