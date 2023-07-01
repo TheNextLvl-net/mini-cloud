@@ -456,9 +456,6 @@ components:
       properties:
         name:
           $ref: "#/components/schemas/Identifier"
-        command:
-          type: string
-          example: java -jar server.jar
         size:
           type: integer
           format: uint64
