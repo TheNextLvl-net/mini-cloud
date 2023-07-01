@@ -1,7 +1,11 @@
 package minicloud.api.server;
 
+import com.google.gson.annotations.SerializedName;
+
 public enum Status {
-    ONLINE, OFFLINE, STARTING;
+    @SerializedName("online") ONLINE,
+    @SerializedName("offline") OFFLINE,
+    @SerializedName("starting") STARTING;
 
     /**
      * @return whether the server is not offline
