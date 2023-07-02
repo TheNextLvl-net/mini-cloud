@@ -13,7 +13,7 @@ info:
 externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
-servers: []
+servers: [ ]
 tags:
   - name: server group
     description: Operations about the server groups
@@ -434,7 +434,7 @@ paths:
     post:
       summary: "Monitor events"
       operationId: "listenEvents"
-      tags: ["system"]
+      tags: [ "system" ]
       requestBody:
         content:
           filters:
@@ -542,7 +542,7 @@ components:
       properties:
         type:
           type: string
-          enum: ["server", "server-group", "template"]
+          enum: [ "server", "server-group", "template" ]
           example: "template"
         name:
           $ref: '#/components/schemas/Identifier'
@@ -552,7 +552,7 @@ components:
         type:
           type: string
           example: server
-          enum: ["server", "server-group", "template"]
+          enum: [ "server", "server-group", "template" ]
         action:
           description: "The type of the event"
           type: string
