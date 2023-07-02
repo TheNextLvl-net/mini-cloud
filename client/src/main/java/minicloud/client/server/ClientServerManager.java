@@ -50,11 +50,10 @@ public class ClientServerManager implements ServerManager {
     }
 
     @Override
-    public Server createServer(Identifier name, Identifier group) {
+    public Server createServer(Identifier group) {
         try {
-            var server = Requests.<String>post(serverUrl + "/api/v1/server", HttpRequest.BodyPublishers.concat(
-                            HttpRequest.BodyPublishers.ofString(name.toString(), StandardCharsets.UTF_8),
-                            HttpRequest.BodyPublishers.ofString(group.toString(), StandardCharsets.UTF_8)))
+            var server = Requests.<String>post(serverUrl + "/api/v1/server",
+                            HttpRequest.BodyPublishers.ofString(group.toString(), StandardCharsets.UTF_8))
                     .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
                     .body();
             return new Gson().fromJson(server, new TypeToken<>() {

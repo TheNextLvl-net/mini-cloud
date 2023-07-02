@@ -154,8 +154,6 @@ paths:
             schema:
               type: object
               properties:
-                name:
-                  $ref: "#/components/schemas/Identifier"
                 group:
                   $ref: "#/components/schemas/Identifier"
         required: true

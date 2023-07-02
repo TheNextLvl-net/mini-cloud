@@ -26,11 +26,10 @@ public interface ServerManager {
     /**
      * Create a new server
      *
-     * @param name  the name of the server
      * @param group the group the server will be associated with
      * @return the new server
      */
-    Server createServer(Identifier name, Identifier group);
+    Server createServer(Identifier group);
 
     /**
      * Remove an existing server

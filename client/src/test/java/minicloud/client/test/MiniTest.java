@@ -34,12 +34,8 @@ public class MiniTest {
                 List.of(lobbyPort),
                 100
         ));
-        int lobbyServers = groupManager.getServers(lobbyGroup.getName()).size();
 
-        var lobbyServer = serverManager.createServer(
-                new Identifier("lobby-" + lobbyServers + 1),
-                lobbyGroup.getName()
-        );
+        var lobbyServer = serverManager.createServer(lobbyGroup.getName());
 
         var result = serverManager.start(lobbyServer.getName());
         result.whenComplete((response, throwable) -> {
