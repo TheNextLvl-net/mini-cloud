@@ -23,9 +23,4 @@ public class MiniCloudPlugin {
         this.server = server;
         this.logger = logger;
     }
-
-    @Subscribe
-    public void onProxyInitialization(ProxyInitializeEvent event) {
-        // server.getEventManager().register(this, new PluginListener());
-    }
 }
