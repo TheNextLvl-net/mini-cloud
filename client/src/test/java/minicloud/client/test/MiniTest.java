@@ -1,6 +1,10 @@
 package minicloud.client.test;
 
+import com.google.gson.Gson;
 import minicloud.api.CloudProvider;
+import minicloud.api.event.EventMessage;
+import minicloud.api.event.EventType;
+import minicloud.api.event.EventsRequest;
 import minicloud.api.group.ServerGroup;
 import minicloud.api.networking.Port;
 import minicloud.api.networking.Protocol;
@@ -12,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class MiniTest {
 
@@ -20,6 +25,21 @@ public class MiniTest {
         var serverManager = cloud.getServerManager();
         var groupManager = cloud.getGroupManager();
         var templateManager = cloud.getTemplateManager();
+        var eventManager = cloud.getEventManager();
+
+        var request = new EventsRequest(
+                new Identifier("test"),
+                EventType.SERVER
+        );
+        Consumer<EventMessage> handler = eventMessage ->
+                System.out.println(new Gson().toJson(eventMessage));
+
+        eventManager.addHandler(request, handler).join();
+        // eventManager.removeHandler(request, handler);
+
+        if (true) {
+            return;
+        }
 
         var lobbyTemplateFile = new File("/home/david/Desktop/Coding/paper/lobby-template.zip");
         var lobbyTemplate = templateManager.createTemplate(

@@ -7,7 +7,7 @@ import java.text.DateFormat;
 
 public record EventMessage(
         @SerializedName("type") EventType type,
-        @SerializedName("action") String action,
+        @SerializedName("action") EventAction action,
         @SerializedName("time") DateFormat time,
         @SerializedName("object") JsonObject object
 ) {

@@ -21,8 +21,10 @@ dependencies {
 
     compileOnly("org.projectlombok:lombok:1.18.26")
     compileOnly("org.jetbrains:annotations:24.0.0")
-    compileOnly("com.google.code.gson:gson:2.10.1")
     compileOnly("net.thenextlvl.core:annotations:1.0.0")
+
+    compileOnly("com.google.code.gson:gson:2.10.1")
+    testCompileOnly("com.google.code.gson:gson:2.10.1")
 
     annotationProcessor("org.projectlombok:lombok:1.18.26")
 }

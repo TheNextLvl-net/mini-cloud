@@ -557,6 +557,7 @@ components:
           description: "The type of the event"
           type: string
           example: "create"
+          enum: [ "create", "remove", "update" ]
         time:
           description: "Timestamp of the event"
           type: "integer"
