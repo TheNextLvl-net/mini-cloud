@@ -1,6 +1,5 @@
 plugins {
     id("java")
-    id("org.openapi.generator") version "6.6.0"
 }
 
 group = rootProject.group
@@ -23,27 +22,7 @@ dependencies {
     compileOnly("org.jetbrains:annotations:24.0.0")
     compileOnly("net.thenextlvl.core:annotations:1.0.0")
 
-    compileOnly("com.google.code.gson:gson:2.10.1")
-    testCompileOnly("com.google.code.gson:gson:2.10.1")
+    implementation("com.google.code.gson:gson:2.10.1")
 
     annotationProcessor("org.projectlombok:lombok:1.18.26")
-}
-
-tasks.openApiGenerate {
-    generatorName.set("java")
-    library.set("okhttp-gson")
-    inputSpec.set("$rootDir/api.yaml")
-    outputDir.set("$buildDir/generated-client")
-    apiPackage.set("minicloud.client.api")
-    invokerPackage.set("minicloud.client.invoker")
-    modelPackage.set("minicloud.client.model")
-    skipValidateSpec.set(true)
-    logToStderr.set(true)
-    generateAliasAsModel.set(false)
-    enablePostProcessFile.set(true)
-    configOptions.set(mapOf(
-            "outputAsLibrary" to "true",
-            "asyncNative" to "true",
-            "supportStreaming" to "true"
-    ))
 }

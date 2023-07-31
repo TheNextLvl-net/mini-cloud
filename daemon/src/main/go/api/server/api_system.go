@@ -63,6 +63,7 @@ func (c *SystemApiController) Routes() Routes {
 
 // ListenEvents - Monitor events
 func (c *SystemApiController) ListenEvents(w http.ResponseWriter, r *http.Request) {
+/*
 	eventsRequestParam := daemon.EventsRequest{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
@@ -74,6 +75,7 @@ func (c *SystemApiController) ListenEvents(w http.ResponseWriter, r *http.Reques
 		c.errorHandler(w, r, err, nil)
 		return
 	}
+*/
 
 	w.WriteHeader(200)
 	w.Header().Set("Content-Type", "application/json")
