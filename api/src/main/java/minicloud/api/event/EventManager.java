@@ -1,8 +1,6 @@
 package minicloud.api.event;
 
-import java.net.http.HttpResponse;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
+import java.util.concurrent.Future;
 
 public interface EventManager {
     /**
@@ -11,15 +9,11 @@ public interface EventManager {
      *
      * @param request the requested events
      * @param handler the event handler
-     * @return returns the given future
      */
-    CompletableFuture<HttpResponse<String>> addHandler(EventsRequest request, Consumer<EventMessage> handler);
+    Future<Void> listen(EventsRequest request, EventHandler handler);
 
-    /**
-     * unregisters an event handler
-     *
-     * @param request the requested events
-     * @param handler the event handler
-     */
-    void removeHandler(EventsRequest request, Consumer<EventMessage> handler);
+    @FunctionalInterface
+    interface EventHandler {
+        void handle(EventMessage message, Exception exception);
+    }
 }

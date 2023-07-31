@@ -1,46 +1,60 @@
 package minicloud.client.event;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import minicloud.api.event.EventManager;
 import minicloud.api.event.EventMessage;
 import minicloud.api.event.EventsRequest;
+import minicloud.api.object.Identifier;
+import minicloud.client.adapter.IdentifierAdapter;
 import minicloud.client.http.Requests;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 @Getter
 @RequiredArgsConstructor
 public class ClientEventManager implements EventManager {
-    private final Map<Map.Entry<EventsRequest, Consumer<EventMessage>>, CompletableFuture<HttpResponse<String>>> handlers = new HashMap<>();
     private final String serverUrl;
 
     @Override
-    public CompletableFuture<HttpResponse<String>> addHandler(EventsRequest request, Consumer<EventMessage> handler) {
-        var future = Requests.<String>post(serverUrl + "/api/v1/events",
-                        HttpRequest.BodyPublishers.ofString(new Gson().toJson(request), StandardCharsets.UTF_8))
-                .sendAsync(HttpResponse.BodyHandlers.ofString());
-        future.thenAccept(response -> handler.accept(new Gson().fromJson(response.body(), EventMessage.class)));
-        future.exceptionally(throwable -> {
-            throwable.printStackTrace();
-            return null;
-        });
-        handlers.put(Map.entry(request, handler), future);
-        return future;
-    }
+    public Future<Void> listen(EventsRequest request, EventHandler handler) {
+        var future = new FutureTask<Void>(() -> {
+            try {
+                var json = new GsonBuilder()
+                        .registerTypeAdapter(Identifier.class, new IdentifierAdapter())
+                        .create()
+                        .toJson(request);
 
-    @Override
-    public void removeHandler(EventsRequest request, Consumer<EventMessage> handler) {
-        var entry = Map.entry(request, handler);
-        if (!handlers.containsKey(entry)) return;
-        handlers.get(entry).cancel(true);
-        handlers.remove(entry);
+                System.out.println(json);
+
+                var response = Requests.<InputStream>post(serverUrl + "/api/v1/events",
+                                HttpRequest.BodyPublishers.ofString(json, StandardCharsets.UTF_8))
+                        .send(HttpResponse.BodyHandlers.ofInputStream());
+
+                System.out.println(response.statusCode());
+
+                var gson = new Gson();
+                var reader = new JsonReader(new InputStreamReader(response.body()));
+                reader.setLenient(true);
+
+                while (reader.hasNext()) {
+                    handler.handle(gson.fromJson(reader, EventMessage.class), null);
+                }
+            } catch (InterruptedException ignored) {
+            } catch (Exception e) {
+                handler.handle(null, e);
+            }
+        }, null);
+        new Thread(future).start();
+        return future;
     }
 }

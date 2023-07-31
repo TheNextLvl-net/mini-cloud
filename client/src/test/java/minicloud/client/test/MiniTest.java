@@ -2,7 +2,7 @@ package minicloud.client.test;
 
 import com.google.gson.Gson;
 import minicloud.api.CloudProvider;
-import minicloud.api.event.EventMessage;
+import minicloud.api.event.EventManager;
 import minicloud.api.event.EventType;
 import minicloud.api.event.EventsRequest;
 import minicloud.api.group.ServerGroup;
@@ -16,11 +16,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.concurrent.ExecutionException;
 
 public class MiniTest {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, ExecutionException, InterruptedException {
         CloudProvider cloud = new ClientCloudProvider("http://0.0.0.0:8080");
         var serverManager = cloud.getServerManager();
         var groupManager = cloud.getGroupManager();
@@ -31,11 +31,12 @@ public class MiniTest {
                 new Identifier("test"),
                 EventType.SERVER
         );
-        Consumer<EventMessage> handler = eventMessage ->
-                System.out.println(new Gson().toJson(eventMessage));
+        EventManager.EventHandler handler = (eventMessage, exception) -> {
+            System.out.println(new Gson().toJson(eventMessage));
+            if (exception != null) exception.printStackTrace();
+        };
 
-        eventManager.addHandler(request, handler).join();
-        // eventManager.removeHandler(request, handler);
+        eventManager.listen(request, handler).get();
 
         if (true) {
             return;
