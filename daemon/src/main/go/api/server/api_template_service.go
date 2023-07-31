@@ -15,17 +15,20 @@ import (
 	"errors"
 	"io"
 	"net/http"
+
+	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/daemon"
 )
 
 // TemplateApiService is a service that implements the logic for the TemplateApiServicer
 // This service should implement the business logic for every endpoint for the TemplateApi API.
 // Include any external packages or services that will be required by this service.
 type TemplateApiService struct {
+	daemon *daemon.Daemon
 }
 
 // NewTemplateApiService creates a default api service
-func NewTemplateApiService() TemplateApiServicer {
-	return &TemplateApiService{}
+func NewTemplateApiService(daemon *daemon.Daemon) TemplateApiServicer {
+	return &TemplateApiService{daemon}
 }
 
 // CreateTemplate - Create a new template

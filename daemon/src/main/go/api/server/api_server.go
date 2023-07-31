@@ -15,7 +15,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/api"
+	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/daemon"
 	"github.com/gorilla/mux"
 )
 
@@ -93,14 +93,14 @@ func (c *ServerApiController) Routes() Routes {
 
 // CreateServer - Create a new server
 func (c *ServerApiController) CreateServer(w http.ResponseWriter, r *http.Request) {
-	createServerRequestParam := api.CreateServerRequest{}
+	createServerRequestParam := daemon.CreateServerRequest{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
 	if err := d.Decode(&createServerRequestParam); err != nil {
-		c.errorHandler(w, r, &api.ParsingError{Err: err}, nil)
+		c.errorHandler(w, r, &daemon.ParsingError{Err: err}, nil)
 		return
 	}
-	if err := api.AssertCreateServerRequestRequired(createServerRequestParam); err != nil {
+	if err := daemon.AssertCreateServerRequestRequired(createServerRequestParam); err != nil {
 		c.errorHandler(w, r, err, nil)
 		return
 	}

@@ -4,11 +4,10 @@ import (
 	"strconv"
 
 	mc "github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go"
-	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/api"
 	"github.com/docker/docker/api/types/swarm"
 )
 
-func ConstructGroup(srv swarm.Service) *api.ServerGroup {
+func ConstructGroup(srv swarm.Service) *ServerGroup {
 
 	maxPlayersPerServer, ok := srv.Spec.Labels[mc.MiniCloudMaxPlayersPerServerLabel]
 	if !ok {
@@ -20,7 +19,7 @@ func ConstructGroup(srv swarm.Service) *api.ServerGroup {
 		return nil
 	}
 
-	return &api.ServerGroup{
+	return &ServerGroup{
 		Name:                srv.Spec.Name,
 		Ports:               ContructPorts(srv.Endpoint.Ports),
 		Template:            srv.Spec.Labels[mc.MiniCloudTemplateLabel],

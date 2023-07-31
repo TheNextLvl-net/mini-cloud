@@ -15,7 +15,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/api"
+	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/daemon"
 	"github.com/gorilla/mux"
 )
 
@@ -87,14 +87,14 @@ func (c *ServerGroupApiController) Routes() Routes {
 
 // CreateGroup - Create a new server group
 func (c *ServerGroupApiController) CreateGroup(w http.ResponseWriter, r *http.Request) {
-	serverGroupParam := api.ServerGroup{}
+	serverGroupParam := daemon.ServerGroup{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
 	if err := d.Decode(&serverGroupParam); err != nil {
-		c.errorHandler(w, r, &api.ParsingError{Err: err}, nil)
+		c.errorHandler(w, r, &daemon.ParsingError{Err: err}, nil)
 		return
 	}
-	if err := api.AssertServerGroupRequired(serverGroupParam); err != nil {
+	if err := daemon.AssertServerGroupRequired(serverGroupParam); err != nil {
 		c.errorHandler(w, r, err, nil)
 		return
 	}

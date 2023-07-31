@@ -4,12 +4,11 @@ import (
 	"context"
 
 	mc "github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go"
-	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/api"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/filters"
 )
 
-func (daemon *Daemon) ListGroups(ctx context.Context) ([]api.ServerGroup, error) {
+func (daemon *Daemon) ListGroups(ctx context.Context) ([]ServerGroup, error) {
 	srvs, err := daemon.client.ServiceList(ctx, types.ServiceListOptions{
 		Filters: filters.NewArgs(filters.Arg("label", mc.MiniCloudManagedLabel+"=true")),
 	})
@@ -17,7 +16,7 @@ func (daemon *Daemon) ListGroups(ctx context.Context) ([]api.ServerGroup, error)
 		return nil, err
 	}
 
-	groups := make([]api.ServerGroup, 0, len(srvs))
+	groups := make([]ServerGroup, 0, len(srvs))
 
 	for _, service := range srvs {
 		group := ConstructGroup(service)

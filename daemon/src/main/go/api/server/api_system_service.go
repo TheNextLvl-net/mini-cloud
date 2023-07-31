@@ -15,7 +15,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/api"
+	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/daemon"
 )
 
 // SystemApiService is a service that implements the logic for the SystemApiServicer
@@ -30,7 +30,7 @@ func NewSystemApiService() SystemApiServicer {
 }
 
 // ListenEvents - Monitor events
-func (s *SystemApiService) ListenEvents(ctx context.Context, eventsRequest api.EventsRequest) (ImplResponse, error) {
+func (s *SystemApiService) ListenEvents(ctx context.Context, eventsRequest daemon.EventsRequest) (ImplResponse, error) {
 	// TODO - update ListenEvents with the required logic for this service method.
 	// Add api_system_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 

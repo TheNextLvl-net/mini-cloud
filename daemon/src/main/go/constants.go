@@ -1,4 +1,4 @@
-package easycloudserver
+package minicloud
 
 const (
 	MiniCloudManagedLabel             string = "minicloud-managed"

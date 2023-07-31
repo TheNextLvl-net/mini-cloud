@@ -15,7 +15,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/api"
+	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/daemon"
 )
 
 // ServerApiRouter defines the required methods for binding the api requests to a responses for the ServerApi
@@ -65,7 +65,7 @@ type TemplateApiRouter interface {
 // while the service implementation can be ignored with the .openapi-generator-ignore file
 // and updated with the logic required for the API.
 type ServerApiServicer interface {
-	CreateServer(context.Context, api.CreateServerRequest) (ImplResponse, error)
+	CreateServer(context.Context, daemon.CreateServerRequest) (ImplResponse, error)
 	GetServer(context.Context, string) (ImplResponse, error)
 	GetServers(context.Context) (ImplResponse, error)
 	RemoveServer(context.Context, string) (ImplResponse, error)
@@ -78,7 +78,7 @@ type ServerApiServicer interface {
 // while the service implementation can be ignored with the .openapi-generator-ignore file
 // and updated with the logic required for the API.
 type ServerGroupApiServicer interface {
-	CreateGroup(context.Context, api.ServerGroup) (ImplResponse, error)
+	CreateGroup(context.Context, daemon.ServerGroup) (ImplResponse, error)
 	GetGroup(context.Context, string) (ImplResponse, error)
 	GetGroups(context.Context) (ImplResponse, error)
 	GetServersInGroup(context.Context, string) (ImplResponse, error)
@@ -90,7 +90,7 @@ type ServerGroupApiServicer interface {
 // while the service implementation can be ignored with the .openapi-generator-ignore file
 // and updated with the logic required for the API.
 type SystemApiServicer interface {
-	ListenEvents(context.Context, api.EventsRequest) (ImplResponse, error)
+	ListenEvents(context.Context, daemon.EventsRequest) (ImplResponse, error)
 }
 
 // TemplateApiServicer defines the api actions for the TemplateApi service

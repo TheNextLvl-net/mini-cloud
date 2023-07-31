@@ -15,7 +15,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/api"
+	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/daemon"
 )
 
 // ServerApiService is a service that implements the logic for the ServerApiServicer
@@ -30,7 +30,7 @@ func NewServerApiService() ServerApiServicer {
 }
 
 // CreateServer - Create a new server
-func (s *ServerApiService) CreateServer(ctx context.Context, createServerRequest api.CreateServerRequest) (ImplResponse, error) {
+func (s *ServerApiService) CreateServer(ctx context.Context, createServerRequest daemon.CreateServerRequest) (ImplResponse, error) {
 	// TODO - update CreateServer with the required logic for this service method.
 	// Add api_server_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 

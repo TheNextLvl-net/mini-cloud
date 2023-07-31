@@ -5,12 +5,11 @@ import (
 	"fmt"
 
 	mc "github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go"
-	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/api"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/filters"
 )
 
-func (daemon *Daemon) GetGroup(ctx context.Context, name string) (*api.ServerGroup, error) {
+func (daemon *Daemon) GetGroup(ctx context.Context, name string) (*ServerGroup, error) {
 
 	srvs, err := daemon.client.ServiceList(ctx, types.ServiceListOptions{
 		Filters: filters.NewArgs(

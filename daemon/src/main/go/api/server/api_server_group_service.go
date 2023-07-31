@@ -15,7 +15,6 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/api"
 	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/daemon"
 )
 
@@ -32,7 +31,7 @@ func NewServerGroupApiService(daemon *daemon.Daemon) ServerGroupApiServicer {
 }
 
 // CreateGroup - Create a new server group
-func (s *ServerGroupApiService) CreateGroup(ctx context.Context, serverGroup api.ServerGroup) (ImplResponse, error) {
+func (s *ServerGroupApiService) CreateGroup(ctx context.Context, serverGroup daemon.ServerGroup) (ImplResponse, error) {
 	// TODO - update CreateGroup with the required logic for this service method.
 	// Add api_server_group_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 

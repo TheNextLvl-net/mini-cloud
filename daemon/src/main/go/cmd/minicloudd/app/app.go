@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/api/server"
 	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/daemon"
@@ -34,6 +35,8 @@ func Run() {
 
 	daemon := daemon.NewDaemon(DockerClient)
 
+	os.MkdirAll("data/templates", 0755)
+
 	ServerApiService := server.NewServerApiService()
 	ServerApiController := server.NewServerApiController(ServerApiService)
 
@@ -43,13 +46,13 @@ func Run() {
 	SystemApiService := server.NewSystemApiService()
 	SystemApiController := server.NewSystemApiController(SystemApiService)
 
-	TemplateApiService := server.NewTemplateApiService()
+	TemplateApiService := server.NewTemplateApiService(daemon)
 	TemplateApiController := server.NewTemplateApiController(TemplateApiService)
 
 	router := server.NewRouter(ServerApiController, ServerGroupApiController, SystemApiController, TemplateApiController)
 
+	// success message and address:port
 	log.Printf("Starting server...")
 	log.Fatal(http.ListenAndServe(":8080", server.Logger(router, "Handles")))
 
-	// success message and address:port
 }

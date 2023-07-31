@@ -14,8 +14,9 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
+	"time"
 
-	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/api"
+	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/daemon"
 )
 
 // SystemApiController binds http requests to an api service and writes the service results to the http response
@@ -62,24 +63,34 @@ func (c *SystemApiController) Routes() Routes {
 
 // ListenEvents - Monitor events
 func (c *SystemApiController) ListenEvents(w http.ResponseWriter, r *http.Request) {
-	eventsRequestParam := api.EventsRequest{}
+	eventsRequestParam := daemon.EventsRequest{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
 	if err := d.Decode(&eventsRequestParam); err != nil {
-		c.errorHandler(w, r, &api.ParsingError{Err: err}, nil)
+		c.errorHandler(w, r, &daemon.ParsingError{Err: err}, nil)
 		return
 	}
-	if err := api.AssertEventsRequestRequired(eventsRequestParam); err != nil {
+	if err := daemon.AssertEventsRequestRequired(eventsRequestParam); err != nil {
 		c.errorHandler(w, r, err, nil)
 		return
 	}
-	result, err := c.service.ListenEvents(r.Context(), eventsRequestParam)
-	// If an error occurred, encode the error with the status code
-	if err != nil {
-		c.errorHandler(w, r, err, &result)
-		return
+
+	w.WriteHeader(200)
+	w.Header().Set("Content-Type", "application/json")
+
+	for {
+		message, err := json.Marshal(&daemon.EventMessage{
+			Type:   "server",
+			Action: "create",
+			Time:   int32(time.Now().Unix()),
+		})
+		if err != nil {
+			break
+		}
+		_, err = w.Write(message)
+		if err != nil {
+			return
+		}
 	}
-	// If no error, encode the body and the result code
-	EncodeJSONResponse(result.Body, &result.Code, w)
 
 }

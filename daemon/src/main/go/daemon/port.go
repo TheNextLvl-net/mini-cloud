@@ -1,12 +1,11 @@
 package daemon
 
 import (
-	"github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go/api"
 	"github.com/docker/docker/api/types/swarm"
 )
 
-func ContructPort(port swarm.PortConfig) api.Port {
-	return api.Port{
+func ContructPort(port swarm.PortConfig) Port {
+	return Port{
 		Name:          port.Name,
 		Protocol:      string(port.Protocol),
 		TargetPort:    int32(port.TargetPort),
@@ -15,8 +14,8 @@ func ContructPort(port swarm.PortConfig) api.Port {
 	}
 }
 
-func ContructPorts(portConfigs []swarm.PortConfig) []api.Port {
-	ports := make([]api.Port, len(portConfigs))
+func ContructPorts(portConfigs []swarm.PortConfig) []Port {
+	ports := make([]Port, len(portConfigs))
 	for index, v := range portConfigs {
 		ports[index] = ContructPort(v)
 	}
