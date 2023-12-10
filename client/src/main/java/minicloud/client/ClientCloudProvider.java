@@ -17,10 +17,10 @@ public class ClientCloudProvider implements CloudProvider {
     private final String serverUrl;
 
     public ClientCloudProvider(String serverUrl) {
-        this.groupManager = new ClientGroupManager(serverUrl);
-        this.serverManager = new ClientServerManager(serverUrl);
-        this.templateManager = new ClientTemplateManager(serverUrl);
-        this.eventManager = new ClientEventManager(serverUrl);
         this.serverUrl = serverUrl;
+        this.groupManager = new ClientGroupManager(this);
+        this.serverManager = new ClientServerManager(this);
+        this.templateManager = new ClientTemplateManager(this);
+        this.eventManager = new ClientEventManager(this);
     }
 }

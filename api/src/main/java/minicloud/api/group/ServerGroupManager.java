@@ -1,7 +1,7 @@
 package minicloud.api.group;
 
-import minicloud.api.object.Identifier;
 import minicloud.api.server.Server;
+import org.intellij.lang.annotations.Pattern;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +20,7 @@ public interface ServerGroupManager {
      * @param group the group to get the servers from
      * @return all servers in the given group
      */
-    List<Server> getServers(Identifier group);
+    List<Server> getServers(@Pattern("^[a-zA-Z0-9_-]+$") String group);
 
     /**
      * Get an existing group
@@ -28,7 +28,7 @@ public interface ServerGroupManager {
      * @param name the name of the desired group
      * @return the desired group
      */
-    Optional<ServerGroup> getGroup(Identifier name);
+    Optional<ServerGroup> getGroup(@Pattern("^[a-zA-Z0-9_-]+$") String name);
 
     /**
      * Create a new group
@@ -43,5 +43,5 @@ public interface ServerGroupManager {
      *
      * @param group the group to remove
      */
-    void removeGroup(Identifier group);
+    void removeGroup(@Pattern("^[a-zA-Z0-9_-]+$") String group);
 }

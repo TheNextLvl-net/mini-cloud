@@ -2,7 +2,7 @@ package minicloud.api.template;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import minicloud.api.object.Identifier;
+import org.intellij.lang.annotations.Pattern;
 
 import java.text.DateFormat;
 
@@ -12,7 +12,8 @@ public class Template {
     /**
      * Get the name identifier of the template
      */
-    private final Identifier name;
+    @Pattern("^[a-zA-Z0-9_-]+$")
+    private final String name;
 
     /**
      * Get the date when the template was created

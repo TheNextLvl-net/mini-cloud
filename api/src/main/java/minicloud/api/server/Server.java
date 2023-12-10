@@ -2,7 +2,7 @@ package minicloud.api.server;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import minicloud.api.object.Identifier;
+import org.intellij.lang.annotations.Pattern;
 
 import java.net.InetAddress;
 
@@ -12,12 +12,12 @@ public class Server {
     /**
      * Get the name identifier of the server
      */
-    private final Identifier name;
+    private final @Pattern("^[a-zA-Z0-9_-]+$") String name;
 
     /**
      * Get the group identifier of the server
      */
-    private final Identifier group;
+    private final @Pattern("^[a-zA-Z0-9_-]+$") String group;
 
     /**
      * Get the internet address of the server

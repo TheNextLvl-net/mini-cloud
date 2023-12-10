@@ -1,6 +1,7 @@
 package minicloud.api.template;
 
-import minicloud.api.object.Identifier;
+import org.intellij.lang.annotations.Pattern;
+import org.intellij.lang.annotations.Subst;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,7 +23,7 @@ public interface TemplateManager {
      * @param template the identifier of the desired template
      * @return the desired template
      */
-    Optional<Template> getTemplate(Identifier template);
+    Optional<Template> getTemplate(@Pattern("^[a-zA-Z0-9_-]+$") String template);
 
     /**
      * Create a new template
@@ -32,14 +33,15 @@ public interface TemplateManager {
      * @return the new template
      * @throws IllegalStateException thrown if a similar template already exists
      */
-    Template createTemplate(Identifier template, FileInputStream fileInput) throws IllegalStateException;
+    @Subst("")
+    Template createTemplate(@Pattern("^[a-zA-Z0-9_-]+$") String template, FileInputStream fileInput) throws IllegalStateException;
 
     /**
      * Remove an existing template
      *
      * @param template the template to remove
      */
-    void removeTemplate(Identifier template);
+    void removeTemplate(@Pattern("^[a-zA-Z0-9_-]+$") String template);
 
     /**
      * Update a template based on a file input stream
@@ -48,7 +50,7 @@ public interface TemplateManager {
      * @param fileInput the file input to use as a template
      * @return the updated template
      */
-    Template updateFiles(Identifier template, FileInputStream fileInput);
+    Template updateFiles(@Pattern("^[a-zA-Z0-9_-]+$") String template, FileInputStream fileInput);
 
     /**
      * Download the files of a given template
@@ -57,5 +59,5 @@ public interface TemplateManager {
      * @param destination the destination to save the template files at
      * @return the input stream
      */
-    InputStream downloadFiles(Identifier template, File destination);
+    InputStream downloadFiles(@Pattern("^[a-zA-Z0-9_-]+$") String template, File destination);
 }

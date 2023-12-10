@@ -4,10 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import minicloud.api.object.Identifier;
+import minicloud.api.CloudProvider;
 import minicloud.api.server.Server;
 import minicloud.api.server.ServerManager;
 import minicloud.client.http.Requests;
+import org.intellij.lang.annotations.Pattern;
 
 import java.io.IOException;
 import java.net.http.HttpRequest;
@@ -21,15 +22,16 @@ import java.util.concurrent.CompletableFuture;
 @Getter
 @RequiredArgsConstructor
 public class ClientServerManager implements ServerManager {
-    private final String serverUrl;
+    private final CloudProvider provider;
+    private final Gson gson = new Gson();
 
     @Override
     public List<Server> getServers() {
         try {
-            var servers = Requests.<String>get(serverUrl + "/api/v1/server")
+            var servers = Requests.<String>get(provider.getServerUrl() + "/api/v1/server")
                     .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
                     .body();
-            return new Gson().fromJson(servers, new TypeToken<>() {
+            return gson.fromJson(servers, new TypeToken<>() {
             });
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -37,12 +39,12 @@ public class ClientServerManager implements ServerManager {
     }
 
     @Override
-    public Optional<Server> getServer(Identifier name) {
+    public Optional<Server> getServer(@Pattern("^[a-zA-Z0-9_-]+$") String name) {
         try {
-            var server = Requests.<String>get(serverUrl + "/api/v1/server/" + name)
+            var server = Requests.<String>get(provider.getServerUrl() + "/api/v1/server/" + name)
                     .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
                     .body();
-            return Optional.ofNullable(new Gson().fromJson(server, new TypeToken<>() {
+            return Optional.ofNullable(gson.fromJson(server, new TypeToken<>() {
             }));
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -50,13 +52,13 @@ public class ClientServerManager implements ServerManager {
     }
 
     @Override
-    public Server createServer(Identifier group) {
+    public Server createServer(@Pattern("^[a-zA-Z0-9_-]+$") String group) {
         try {
-            var server = Requests.<String>post(serverUrl + "/api/v1/server",
-                            HttpRequest.BodyPublishers.ofString(group.toString(), StandardCharsets.UTF_8))
+            var server = Requests.<String>post(provider.getServerUrl() + "/api/v1/server",
+                            HttpRequest.BodyPublishers.ofString(group, StandardCharsets.UTF_8))
                     .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
                     .body();
-            return new Gson().fromJson(server, new TypeToken<>() {
+            return gson.fromJson(server, new TypeToken<>() {
             });
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -64,9 +66,9 @@ public class ClientServerManager implements ServerManager {
     }
 
     @Override
-    public void removeServer(Identifier server) {
+    public void removeServer(@Pattern("^[a-zA-Z0-9_-]+$") String server) {
         try {
-            Requests.<Void>delete(serverUrl + "/api/v1/server/" + server)
+            Requests.<Void>delete(provider.getServerUrl() + "/api/v1/server/" + server)
                     .send(HttpResponse.BodyHandlers.discarding())
                     .body();
         } catch (IOException | InterruptedException e) {
@@ -75,16 +77,16 @@ public class ClientServerManager implements ServerManager {
     }
 
     @Override
-    public CompletableFuture<HttpResponse<Void>> start(Identifier server) {
-        return Requests.<Void>post(serverUrl + "/api/v1/server/" + server + "/start",
+    public CompletableFuture<HttpResponse<Void>> start(@Pattern("^[a-zA-Z0-9_-]+$") String server) {
+        return Requests.<Void>post(provider.getServerUrl() + "/api/v1/server/" + server + "/start",
                         HttpRequest.BodyPublishers.noBody())
                 .timeout(Duration.ofMinutes(5))
                 .sendAsync(HttpResponse.BodyHandlers.discarding());
     }
 
     @Override
-    public CompletableFuture<HttpResponse<Void>> stop(Identifier server) {
-        return Requests.<Void>post(serverUrl + "/api/v1/server/" + server + "/stop",
+    public CompletableFuture<HttpResponse<Void>> stop(@Pattern("^[a-zA-Z0-9_-]+$") String server) {
+        return Requests.<Void>post(provider.getServerUrl() + "/api/v1/server/" + server + "/stop",
                         HttpRequest.BodyPublishers.noBody())
                 .timeout(Duration.ofMinutes(5))
                 .sendAsync(HttpResponse.BodyHandlers.discarding());

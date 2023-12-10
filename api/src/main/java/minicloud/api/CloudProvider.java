@@ -7,6 +7,13 @@ import minicloud.api.template.TemplateManager;
 
 public interface CloudProvider {
     /**
+     * Get the server url
+     *
+     * @return the server url
+     */
+    String getServerUrl();
+
+    /**
      * Get the group manager
      *
      * @return the group manager

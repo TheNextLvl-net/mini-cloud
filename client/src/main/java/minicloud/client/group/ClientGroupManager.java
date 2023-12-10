@@ -4,11 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import minicloud.api.CloudProvider;
 import minicloud.api.group.ServerGroup;
 import minicloud.api.group.ServerGroupManager;
-import minicloud.api.object.Identifier;
 import minicloud.api.server.Server;
 import minicloud.client.http.Requests;
+import org.intellij.lang.annotations.Pattern;
 
 import java.io.IOException;
 import java.net.http.HttpRequest;
@@ -20,15 +21,16 @@ import java.util.Optional;
 @Getter
 @RequiredArgsConstructor
 public class ClientGroupManager implements ServerGroupManager {
-    private final String serverUrl;
+    private final CloudProvider provider;
+    private final Gson gson = new Gson();
 
     @Override
     public List<ServerGroup> getGroups() {
         try {
-            var groups = Requests.<String>get(serverUrl + "/api/v1/group")
+            var groups = Requests.<String>get(provider.getServerUrl() + "/api/v1/group")
                     .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
                     .body();
-            return new Gson().fromJson(groups, new TypeToken<>() {
+            return gson.fromJson(groups, new TypeToken<>() {
             });
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -36,12 +38,12 @@ public class ClientGroupManager implements ServerGroupManager {
     }
 
     @Override
-    public List<Server> getServers(Identifier group) {
+    public List<Server> getServers(@Pattern("^[a-zA-Z0-9_-]+$") String group) {
         try {
-            var servers = Requests.<String>get(serverUrl + "/api/v1/group/" + group + "/servers")
+            var servers = Requests.<String>get(provider.getServerUrl() + "/api/v1/group/" + group + "/servers")
                     .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
                     .body();
-            return new Gson().fromJson(servers, new TypeToken<>() {
+            return gson.fromJson(servers, new TypeToken<>() {
             });
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -49,12 +51,12 @@ public class ClientGroupManager implements ServerGroupManager {
     }
 
     @Override
-    public Optional<ServerGroup> getGroup(Identifier name) {
+    public Optional<ServerGroup> getGroup(@Pattern("^[a-zA-Z0-9_-]+$") String name) {
         try {
-            var group = Requests.<String>get(serverUrl + "/api/v1/group/" + name)
+            var group = Requests.<String>get(provider.getServerUrl() + "/api/v1/group/" + name)
                     .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
                     .body();
-            return Optional.ofNullable(new Gson().fromJson(group, new TypeToken<>() {
+            return Optional.ofNullable(gson.fromJson(group, new TypeToken<>() {
             }));
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -64,12 +66,12 @@ public class ClientGroupManager implements ServerGroupManager {
     @Override
     public ServerGroup createGroup(ServerGroup group) {
         try {
-            var response = Requests.<String>post(serverUrl + "/api/v1/group", HttpRequest.BodyPublishers.ofString(
-                            new Gson().toJsonTree(this).toString(),
+            var response = Requests.<String>post(provider.getServerUrl() + "/api/v1/group", HttpRequest.BodyPublishers.ofString(
+                            gson.toJsonTree(this).toString(),
                             StandardCharsets.UTF_8))
                     .send(HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
                     .body();
-            return new Gson().fromJson(response, new TypeToken<>() {
+            return gson.fromJson(response, new TypeToken<>() {
             });
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -77,9 +79,9 @@ public class ClientGroupManager implements ServerGroupManager {
     }
 
     @Override
-    public void removeGroup(Identifier group) {
+    public void removeGroup(@Pattern("^[a-zA-Z0-9_-]+$") String group) {
         try {
-            Requests.<Void>delete(serverUrl + "/api/v1/group/" + group)
+            Requests.<Void>delete(provider.getServerUrl() + "/api/v1/group/" + group)
                     .send(HttpResponse.BodyHandlers.discarding())
                     .body();
         } catch (IOException | InterruptedException e) {

@@ -1,15 +1,13 @@
 package minicloud.client.event;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import minicloud.api.CloudProvider;
 import minicloud.api.event.EventManager;
 import minicloud.api.event.EventMessage;
 import minicloud.api.event.EventsRequest;
-import minicloud.api.object.Identifier;
-import minicloud.client.adapter.IdentifierAdapter;
 import minicloud.client.http.Requests;
 
 import java.io.InputStream;
@@ -23,20 +21,18 @@ import java.util.concurrent.FutureTask;
 @Getter
 @RequiredArgsConstructor
 public class ClientEventManager implements EventManager {
-    private final String serverUrl;
+    private final CloudProvider provider;
+    private final Gson gson = new Gson();
 
     @Override
     public Future<Void> listen(EventsRequest request, EventHandler handler) {
         var future = new FutureTask<Void>(() -> {
             try {
-                var json = new GsonBuilder()
-                        .registerTypeAdapter(Identifier.class, new IdentifierAdapter())
-                        .create()
-                        .toJson(request);
+                var json = gson.toJson(request);
 
                 System.out.println(json);
 
-                var response = Requests.<InputStream>post(serverUrl + "/api/v1/events",
+                var response = Requests.<InputStream>post(provider.getServerUrl() + "/api/v1/events",
                                 HttpRequest.BodyPublishers.ofString(json, StandardCharsets.UTF_8))
                         .send(HttpResponse.BodyHandlers.ofInputStream());
 

@@ -3,7 +3,7 @@ package minicloud.api.group;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import minicloud.api.networking.Port;
-import minicloud.api.object.Identifier;
+import org.intellij.lang.annotations.Pattern;
 
 import java.util.List;
 
@@ -13,12 +13,14 @@ public class ServerGroup {
     /**
      * Get the name identifier of the group
      */
-    private final Identifier name;
+    @Pattern("^[a-zA-Z0-9_-]+$")
+    private final String name;
 
     /**
      * Get the template identifier of the group
      */
-    private final Identifier template;
+    @Pattern("^[a-zA-Z0-9_-]+$")
+    private final String template;
 
     /**
      * Get all ports this group can use
