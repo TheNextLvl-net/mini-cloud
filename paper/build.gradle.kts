@@ -22,9 +22,9 @@ dependencies {
     implementation(project(":api"))
     implementation(project(":client"))
 
-    implementation("net.thenextlvl.core:api:3.1.12")
+    implementation("net.thenextlvl.core:files:1.0.1")
 
-    compileOnly("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT")
 }
 
 tasks.shadowJar {
