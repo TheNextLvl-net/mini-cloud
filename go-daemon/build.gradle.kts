@@ -9,7 +9,7 @@ version = rootProject.version
 tasks.openApiGenerate {
     generatorName.set("go-server")
     inputSpec.set("$rootDir/api.yaml")
-    outputDir.set("$buildDir/generated-server")
+    outputDir.set("${layout.buildDirectory}/generated-server")
     apiPackage.set("minicloud.server.api")
     invokerPackage.set("minicloud.server.invoker")
     modelPackage.set("minicloud.server.model")
