@@ -3,7 +3,7 @@ module github.com/TheNextLvl-net/mini-cloud/daemon/main/src/go
 go 1.20
 
 require (
-	github.com/docker/docker v26.1.4+incompatible
+	github.com/docker/docker v26.1.5+incompatible
 	github.com/gorilla/mux v1.8.0
 )
 
